@@ -36,38 +36,33 @@
         </Col>
         <Col span="7" offset="1">
             <Card>
-                    <Alert  class="center">Night Shift
+                    <Alert  class="center">Add New Guest
                     <span slot="desc"></span>
                     </Alert >
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
                     <FormItem label="Name" prop="name">
-                        <Input v-model="formValidate.name" placeholder="Enter your name"></Input>
+                        <Input v-model="formValidate.name" placeholder="Enter name"></Input>
                     </FormItem>
                     <FormItem label="Phone" prop="phone">
-                        <Input v-model="formValidate.name" placeholder="Enter your contact number"></Input>
+                        <Input v-model="formValidate.phone" placeholder="Enter contact number"></Input>
+                    </FormItem>
+                    <FormItem label="ID"  prop="nid">
+                        <Input v-model="formValidate.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
                     </FormItem>
                     <FormItem label="E-mail" prop="mail">
-                        <Input v-model="formValidate.mail" placeholder="Enter your e-mail"></Input>
+                        <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
+                    </FormItem>
+                    <FormItem label="Birth date">
+                            <DatePicker type="date" placeholder="Select date" v-model="formValidate.dob"></DatePicker>
                     </FormItem>
                     <FormItem label="Address" prop="address">
                         <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
                     </FormItem>
-                    <FormItem label="NID"  prop="nid">
-                        <Input v-model="formValidate.name" placeholder="Enter your contact number"></Input>
-                    </FormItem>
-                    <FormItem label="Birth date">
-                        <FormItem prop="dob">
-                            <DatePicker type="dob" placeholder="Select date" v-model="formValidate.dob"></DatePicker>
-                        </FormItem>
-                    </FormItem>
                     <FormItem label="Gender" prop="gender">
                         <RadioGroup v-model="formValidate.gender">
-                            <Radio label="male">Male</Radio>
+                            <Radio label="male" >Male</Radio>
                             <Radio label="female">Female</Radio>
                         </RadioGroup>
-                    </FormItem>
-                    <FormItem label="Desc">
-                        <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
@@ -101,7 +96,6 @@
                     address: '',
                     gender: '',
                     dob: '',
-                    desc: ''
                 },
                 ruleValidate: {
                     name: [
@@ -113,13 +107,6 @@
                     nid: [
                         { required: true, message: 'Please enter phone NID', trigger: 'blur' }
                     ],
-                    gender: [
-                        { required: true, message: 'Please select gender', trigger: 'change' }
-                    ],
-                    address: [
-                        { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
-                        { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
-                    ],
                 }
             }
         },
@@ -127,6 +114,7 @@
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
+                        this.addGuest()
                         this.$Message.success('Success!');
                     } else {
                         this.$Message.error('Fail!');
@@ -135,7 +123,23 @@
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
-            }
+            },
+            async addGuest(){
+                this.loading=true
+                try{
+                    let {data} =await  axios({
+                        method: 'post',
+                        url:'/app/guest',
+                        data: this.formValidate
+                    })
+
+                    this.s('Great!','Sell has been added successfully!')
+                    this.loading=false
+                }catch(e){
+                    this.loading=false
+                    this.e('Oops!','Something went wrong, please try again!')
+                }
+            },
         }
     }
 </script>

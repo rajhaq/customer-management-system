@@ -19,7 +19,7 @@ class CreateGuestsTable extends Migration
             $table->string('name');
             $table->string('mail');
             $table->string('phone');
-            $table->string('nid');
+            $table->string('nid')->unique();
             $table->text('address')->nullable();
             $table->string('gender')->nullable();
             $table->date('dob')->nullable();

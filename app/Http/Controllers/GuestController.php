@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Guest;
+use Auth;
 
 class GuestController extends Controller
 {
@@ -13,7 +14,9 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $data=Guest::orderBy('name', 'asc')->get();
+        $data=Guest::orderBy('name', 'asc')
+        ->with('admin')
+        ->get();
         return $data;
     }
 
@@ -35,11 +38,23 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        $created=Guest::create($request->all());
-         return response()->json([
-                 'msg' => 'Inserted',
-                 'status' => $created
-            ],200);
+        $admin_id=Auth::user()->id;
+        $input=$request->all();
+        // create guest
+        $created=Guest::create([
+            'admin_id' => $admin_id,
+            'name' => $input['name'],
+            'mail' => $input['mail'],
+            'phone' => $input['phone'],
+            'nid' => $input['nid'],
+            'address' => $input['address'],
+            'gender' => $input['gender'],
+            'dob' => $input['dob'],
+        ]);
+        return response()->json([
+                'msg' => 'Inserted',
+                'status' => $created
+        ],200);
     }
 
     /**
@@ -73,7 +88,24 @@ class GuestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin_id=Auth::user()->id;
+        $input=$request->all();
+        $update=Guest::where('id',$id)->update(
+            [
+                'admin_id' => $admin_id,
+                'name' => $input['name'],
+                'mail' => $input['mail'],
+                'phone' => $input['phone'],
+                'nid' => $input['nid'],
+                'address' => $input['address'],
+                'gender' => $input['gender'],
+                'dob' => $input['dob'],
+            ]
+        );
+        return response()->json([
+            'msg'=>'success',
+            'status'=>$update
+            ]);
     }
     public function guestUpdate(Request $request)
     {

@@ -92123,10 +92123,86 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        var _this = this;
+
         return {
+            editModal: false,
+            deleteModal: false,
+            sending: false,
+            loading: false,
+            UpdateValue: {},
+            editObj: {
+                id: '',
+                name: '',
+                mail: '',
+                phone: '',
+                nid: '',
+                address: '',
+                gender: '',
+                dob: '',
+                admin_id: ''
+            },
             options3: {
                 disabledDate: function disabledDate(date) {
                     return date && date.valueOf() < Date.now() - 86400000;
@@ -92147,6 +92223,60 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 gender: '',
                 dob: ''
             },
+            columns1: [{
+                title: 'Name',
+                key: 'name'
+            }, {
+                title: 'Email',
+                key: 'email'
+            }, {
+                title: 'NID',
+                key: 'nid'
+            }, {
+                title: 'Phone',
+                key: 'phone'
+            }, {
+                title: 'Address',
+                key: 'address'
+            }, {
+                title: 'Gender',
+                key: 'gender'
+            }, {
+                title: 'Birthdate',
+                key: 'dob'
+            }, {
+                title: 'Action',
+                key: 'action',
+                width: 150,
+                align: 'center',
+                render: function render(h, params) {
+                    return h('div', [h('Button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '5px'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showEdit(params.index);
+                            }
+                        }
+                    }, 'Edit'), h('Button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showRemove(params.index);
+                            }
+                        }
+                    }, 'Delete')]);
+                }
+            }],
+            dataGuest: [],
             ruleValidate: {
                 name: [{ required: true, message: 'The name cannot be empty', trigger: 'blur' }],
                 phone: [{ required: true, message: 'Please enter phone number', trigger: 'blur' }],
@@ -92156,15 +92286,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
 
     methods: {
+        dateConverter: function dateConverter(key) {
+            this.formValidate.dob = key;
+            this.editObj.dob = key;
+        },
         handleSubmit: function handleSubmit(name) {
-            var _this = this;
+            var _this2 = this;
 
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    _this.addGuest();
-                    _this.$Message.success('Success!');
+                    _this2.addGuest();
+                    _this2.$Message.success('Success!');
                 } else {
-                    _this.$Message.error('Fail!');
+                    _this2.$Message.error('Fail!');
                 }
             });
         },
@@ -92192,25 +92326,25 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _ref2 = _context.sent;
                                 data = _ref2.data;
 
-
-                                this.s('Great!', 'Sell has been added successfully!');
+                                this.dataGuest.unshift(data.status);
+                                this.s('Great!', 'Guest has been added successfully!');
                                 this.loading = false;
-                                _context.next = 14;
+                                _context.next = 15;
                                 break;
 
-                            case 10:
-                                _context.prev = 10;
+                            case 11:
+                                _context.prev = 11;
                                 _context.t0 = _context['catch'](1);
 
                                 this.loading = false;
                                 this.e('Oops!', 'Something went wrong, please try again!');
 
-                            case 14:
+                            case 15:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[1, 10]]);
+                }, _callee, this, [[1, 11]]);
             }));
 
             function addGuest() {
@@ -92218,8 +92352,190 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             }
 
             return addGuest;
+        }(),
+        showEdit: function showEdit(index) {
+            this.editObj = this.dataGuest[index];
+            this.UpdateValue.indexNumber = index;
+            this.editModal = true;
+        },
+        showRemove: function showRemove(index) {
+            this.UpdateValue.groupName = this.data1[index].groupName;
+            this.UpdateValue.id = this.data1[index].id;
+            this.UpdateValue.indexNumber = index;
+            this.deleteModal = true;
+        },
+        edit: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+                var _ref4, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                this.sending = true;
+                                _context2.prev = 1;
+                                _context2.next = 4;
+                                return axios({
+                                    method: 'post',
+                                    url: '/app/guest',
+                                    data: this.editObj
+                                });
+
+                            case 4:
+                                _ref4 = _context2.sent;
+                                data = _ref4.data;
+
+                                this.s('Great!', 'Group information has been updated successfully!');
+
+                                this.sending = false;
+                                this.editModal = false;
+                                _context2.next = 16;
+                                break;
+
+                            case 11:
+                                _context2.prev = 11;
+                                _context2.t0 = _context2['catch'](1);
+
+                                this.sending = false;
+                                this.editModal = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 16:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this, [[1, 11]]);
+            }));
+
+            function edit() {
+                return _ref3.apply(this, arguments);
+            }
+
+            return edit;
+        }(),
+        remove: function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
+                var _ref6, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                this.sending = true;
+                                _context3.prev = 1;
+                                _context3.next = 4;
+                                return axios({
+                                    method: 'delete',
+                                    url: '/app/group/' + this.UpdateValue.id
+                                });
+
+                            case 4:
+                                _ref6 = _context3.sent;
+                                data = _ref6.data;
+
+                                this.data1.splice(this.UpdateValue.indexNumber, 1);
+                                this.s('Great!', 'Group information has been removed successfully!');
+
+                                this.sending = false;
+                                this.deleteModal = false;
+                                _context3.next = 17;
+                                break;
+
+                            case 12:
+                                _context3.prev = 12;
+                                _context3.t0 = _context3['catch'](1);
+
+                                this.sending = false;
+                                this.deleteModal = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 17:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this, [[1, 12]]);
+            }));
+
+            function remove() {
+                return _ref5.apply(this, arguments);
+            }
+
+            return remove;
         }()
-    }
+    },
+    created: function () {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
+            var _ref8, data, _ref9, _data;
+
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            this.ls();
+                            _context4.prev = 1;
+                            _context4.next = 4;
+                            return axios({
+                                method: 'get',
+                                url: '/app/admin'
+                            });
+
+                        case 4:
+                            _ref8 = _context4.sent;
+                            data = _ref8.data;
+
+                            this.dataAdmin = data;
+
+                            _context4.next = 13;
+                            break;
+
+                        case 9:
+                            _context4.prev = 9;
+                            _context4.t0 = _context4['catch'](1);
+
+                            this.e('Oops!', 'Something went wrong, please try again!');
+                            this.le();
+
+                        case 13:
+                            _context4.prev = 13;
+                            _context4.next = 16;
+                            return axios({
+                                method: 'get',
+                                url: '/app/guest'
+                            });
+
+                        case 16:
+                            _ref9 = _context4.sent;
+                            _data = _ref9.data;
+
+                            this.dataGuest = _data;
+                            this.lf();
+
+                            _context4.next = 26;
+                            break;
+
+                        case 22:
+                            _context4.prev = 22;
+                            _context4.t1 = _context4['catch'](13);
+
+                            this.e('Oops!', 'Something went wrong, please try again!');
+                            this.le();
+
+                        case 26:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, this, [[1, 9], [13, 22]]);
+        }));
+
+        function created() {
+            return _ref7.apply(this, arguments);
+        }
+
+        return created;
+    }()
 });
 
 /***/ }),
@@ -93023,24 +93339,16 @@ var render = function() {
             { staticClass: "center" },
             [
               _c("Alert", { attrs: { type: "warning" } }, [
-                _vm._v("Day Shift\n                    "),
+                _vm._v("Guest List\n                "),
                 _c("span", { attrs: { slot: "desc" }, slot: "desc" })
               ]),
               _vm._v(" "),
               _c(
                 "p",
-                [_c("Icon", { attrs: { type: "ios-checkmark-circle" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c("p", [_vm._v("Already Booked ")]),
-              _vm._v(" "),
-              _c(
-                "p",
                 [
-                  _c("Button", { attrs: { type: "primary" } }, [
-                    _vm._v("View Information")
-                  ])
+                  _c("Table", {
+                    attrs: { columns: _vm.columns1, data: _vm.dataGuest }
+                  })
                 ],
                 1
               )
@@ -93059,7 +93367,7 @@ var render = function() {
             "Card",
             [
               _c("Alert", { staticClass: "center" }, [
-                _vm._v("Add New Guest\n                "),
+                _vm._v("New Guest\n                "),
                 _c("span", { attrs: { slot: "desc" }, slot: "desc" })
               ]),
               _vm._v(" "),
@@ -93154,13 +93462,7 @@ var render = function() {
                     [
                       _c("DatePicker", {
                         attrs: { type: "date", placeholder: "Select date" },
-                        model: {
-                          value: _vm.formValidate.dob,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formValidate, "dob", $$v)
-                          },
-                          expression: "formValidate.dob"
-                        }
+                        on: { "on-change": _vm.dateConverter }
                       })
                     ],
                     1
@@ -93225,13 +93527,9 @@ var render = function() {
                         "Button",
                         {
                           attrs: { type: "primary" },
-                          on: {
-                            click: function($event) {
-                              _vm.handleSubmit("formValidate")
-                            }
-                          }
+                          on: { click: _vm.addGuest }
                         },
-                        [_vm._v("Submit")]
+                        [_vm._v("Add")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -93257,6 +93555,292 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "600" },
+          model: {
+            value: _vm.editModal,
+            callback: function($$v) {
+              _vm.editModal = $$v
+            },
+            expression: "editModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#369", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "edit" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" Edit")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {},
+            [
+              _c(
+                "Form",
+                {
+                  ref: "formValidate",
+                  attrs: {
+                    model: _vm.editObj,
+                    rules: _vm.ruleValidate,
+                    "label-position": "top"
+                  }
+                },
+                [
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Name", prop: "name" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter name" },
+                        model: {
+                          value: _vm.editObj.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "name", $$v)
+                          },
+                          expression: "editObj.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Phone", prop: "phone" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter contact number" },
+                        model: {
+                          value: _vm.editObj.phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "phone", $$v)
+                          },
+                          expression: "editObj.phone"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "ID", prop: "nid" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          placeholder: "Enter NID/PASSPORT/DRIVING LICENSE"
+                        },
+                        model: {
+                          value: _vm.editObj.nid,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "nid", $$v)
+                          },
+                          expression: "editObj.nid"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "E-mail", prop: "mail" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter e-mail" },
+                        model: {
+                          value: _vm.editObj.mail,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "mail", $$v)
+                          },
+                          expression: "editObj.mail"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Birth date" } },
+                    [
+                      _c("DatePicker", {
+                        attrs: { type: "date", placeholder: "Select date" },
+                        on: { "on-change": _vm.dateConverter },
+                        model: {
+                          value: _vm.editObj.dob,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "dob", $$v)
+                          },
+                          expression: "editObj.dob"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Address", prop: "address" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          type: "textarea",
+                          autosize: { minRows: 2, maxRows: 5 },
+                          placeholder: "Enter full address..."
+                        },
+                        model: {
+                          value: _vm.editObj.address,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "address", $$v)
+                          },
+                          expression: "editObj.address"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Gender", prop: "gender" } },
+                    [
+                      _c(
+                        "RadioGroup",
+                        {
+                          model: {
+                            value: _vm.editObj.gender,
+                            callback: function($$v) {
+                              _vm.$set(_vm.editObj, "gender", $$v)
+                            },
+                            expression: "editObj.gender"
+                          }
+                        },
+                        [
+                          _c("Radio", { attrs: { label: "male" } }, [
+                            _vm._v("Male")
+                          ]),
+                          _vm._v(" "),
+                          _c("Radio", { attrs: { label: "female" } }, [
+                            _vm._v("Female")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "primary",
+                    size: "large",
+                    long: "",
+                    loading: _vm.sending
+                  },
+                  on: { click: _vm.edit }
+                },
+                [
+                  !_vm.loading
+                    ? _c("span", [_vm._v("Update")])
+                    : _c("span", [_vm._v("Updating...")])
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "360" },
+          model: {
+            value: _vm.deleteModal,
+            callback: function($$v) {
+              _vm.deleteModal = $$v
+            },
+            expression: "deleteModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#f60", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "close" } }),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(" Delete " + _vm._s(_vm.UpdateValue.groupName))
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticStyle: { "text-align": "center" } }, [
+            _vm._v(
+              "\n            Are you sure you want delete " +
+                _vm._s(_vm.UpdateValue.groupName) +
+                "\n\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "error",
+                    size: "large",
+                    long: "",
+                    loading: _vm.sending
+                  },
+                  on: { click: _vm.remove }
+                },
+                [
+                  !_vm.loading
+                    ? _c("span", [_vm._v("Delete")])
+                    : _c("span", [_vm._v("Deleting...")])
+                ]
+              )
+            ],
+            1
+          )
+        ]
       )
     ],
     1

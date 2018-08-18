@@ -25,18 +25,18 @@
     <Row>
         <Col span="14" offset="1">
             <Card class="center">
-
-                    <Alert type="warning" >Day Shift
-                        <span slot="desc"></span>
-                    </Alert>
-                <p ><Icon type="ios-checkmark-circle" /></p>
-                <p >Already Booked </p>
-                <p><Button type="primary">View Information</Button></p>
+                <Alert type="warning" >Guest List
+                    <span slot="desc"></span>
+                </Alert>
+                <!-- table -->
+                <p>
+                        <Table :columns="columns1" :data="dataGuest"></Table>
+                </p>
             </Card>
         </Col>
         <Col span="7" offset="1">
             <Card>
-                    <Alert  class="center">Add New Guest
+                    <Alert  class="center">New Guest
                     <span slot="desc"></span>
                     </Alert >
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
@@ -53,7 +53,7 @@
                         <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
                     </FormItem>
                     <FormItem label="Birth date">
-                            <DatePicker type="date" placeholder="Select date" v-model="formValidate.dob"></DatePicker>
+                            <DatePicker type="date" placeholder="Select date"  @on-change="dateConverter" ></DatePicker>
                     </FormItem>
                     <FormItem label="Address" prop="address">
                         <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
@@ -65,18 +65,92 @@
                         </RadioGroup>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+                        <Button type="primary" @click="addGuest">Add</Button>
                         <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
                     </FormItem>
                 </Form>
             </Card>
         </Col>
+        <!-- modal -->
+        <Modal v-model="editModal" width="600">
+            <p slot="header" style="color:#369;text-align:center">
+                <Icon type="edit"></Icon>
+                <span> Edit</span>
+            </p>
+            <div style="">
+                <Form ref="formValidate" :model="editObj" :rules="ruleValidate" label-position="top">
+                    <FormItem label="Name" prop="name">
+                        <Input v-model="editObj.name" placeholder="Enter name"></Input>
+                    </FormItem>
+                    <FormItem label="Phone" prop="phone">
+                        <Input v-model="editObj.phone" placeholder="Enter contact number"></Input>
+                    </FormItem>
+                    <FormItem label="ID"  prop="nid">
+                        <Input v-model="editObj.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
+                    </FormItem>
+                    <FormItem label="E-mail" prop="mail">
+                        <Input v-model="editObj.mail" placeholder="Enter e-mail"></Input>
+                    </FormItem>
+                    <FormItem label="Birth date">
+                            <DatePicker type="date" placeholder="Select date" v-model="editObj.dob"  @on-change="dateConverter" ></DatePicker>
+                    </FormItem>
+                    <FormItem label="Address" prop="address">
+                        <Input v-model="editObj.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
+                    </FormItem>
+                    <FormItem label="Gender" prop="gender">
+                        <RadioGroup v-model="editObj.gender">
+                            <Radio label="male" >Male</Radio>
+                            <Radio label="female">Female</Radio>
+                        </RadioGroup>
+                    </FormItem>
+                </Form>
+            </div>
+            <div slot="footer">
+                <Button type="primary" size="large" long :loading="sending" @click="edit">
+                    <span v-if="!loading">Update</span>
+                    <span v-else>Updating...</span>
+                </Button>
+            </div>
+        </Modal>
+        <Modal v-model="deleteModal" width="360">
+            <p slot="header" style="color:#f60;text-align:center">
+                <Icon type="close"></Icon>
+                <span> Delete {{UpdateValue.groupName}}</span>
+            </p>
+            <div style="text-align:center">
+                Are you sure you want delete {{UpdateValue.groupName}}
+
+            </div>
+            <div slot="footer">
+                <Button type="error" size="large" long :loading="sending" @click="remove">
+                    <span v-if="!loading">Delete</span>
+                    <span v-else>Deleting...</span>
+                </Button>
+            </div>
+        </Modal>
     </Row>
+
 </template>
 <script>
     export default {
         data () {
             return {
+                editModal:false,
+                deleteModal:false,
+                sending:false,
+                loading:false,
+                UpdateValue:{},
+                editObj:{
+                    id:'',
+                    name: '',
+                    mail: '',
+                    phone: '',
+                    nid: '',
+                    address: '',
+                    gender: '',
+                    dob: '',
+                    admin_id: '',
+                },
                 options3: {
                     disabledDate (date) {
                         return date && date.valueOf() < Date.now() - 86400000;
@@ -96,7 +170,77 @@
                     address: '',
                     gender: '',
                     dob: '',
-                },
+                    },
+                columns1: [
+                    {
+                        title: 'Name',
+                        key: 'name'
+                    },
+                    {
+                        title: 'Email',
+                        key: 'email'
+                    },
+                    {
+                        title: 'NID',
+                        key: 'nid'
+                    },
+                    {
+                        title: 'Phone',
+                        key: 'phone'
+                    },
+                    {
+                        title: 'Address',
+                        key: 'address'
+                    },
+                    {
+                        title: 'Gender',
+                        key: 'gender'
+                    },
+                    {
+                        title: 'Birthdate',
+                        key: 'dob'
+                    },
+                    {
+                        title: 'Action',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.showEdit(params.index)
+                                        }
+                                    }
+                                }, 'Edit'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.showRemove(params.index)
+                                        }
+                                    }
+                                }, 'Delete')
+                            ]);
+                        }
+                    }
+                ],
+                dataGuest: [
+
+
+
+                ],
                 ruleValidate: {
                     name: [
                         { required: true, message: 'The name cannot be empty', trigger: 'blur' }
@@ -111,6 +255,12 @@
             }
         },
         methods: {
+            dateConverter(key)
+            {
+                this.formValidate.dob=key
+                this.editObj.dob=key
+
+            },
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
@@ -132,14 +282,91 @@
                         url:'/app/guest',
                         data: this.formValidate
                     })
-
-                    this.s('Great!','Sell has been added successfully!')
+                    this.dataGuest.unshift(data.status)
+                    this.s('Great!','Guest has been added successfully!')
                     this.loading=false
                 }catch(e){
                     this.loading=false
                     this.e('Oops!','Something went wrong, please try again!')
                 }
             },
+            showEdit (index) {
+                this.editObj=this.dataGuest[index]
+                this.UpdateValue.indexNumber=index
+                this.editModal=true
+            },
+            showRemove (index) {
+                this.UpdateValue.groupName=this.data1[index].groupName
+                this.UpdateValue.id=this.data1[index].id
+                this.UpdateValue.indexNumber=index
+                this.deleteModal=true
+            },
+            async edit(){
+                this.sending=true
+                try{
+                    let {data} =await  axios({
+                        method: 'post',
+                        url:'/app/guest',
+                        data: this.editObj
+                    })
+                    this.s('Great!','Group information has been updated successfully!')
+
+                    this.sending=false
+                    this.editModal=false
+                }catch(e){
+                    this.sending=false
+                    this.editModal=false
+                    this.e('Oops!','Something went wrong, please try again!')
+                }
+            },
+            async remove(){
+                this.sending=true
+                try{
+                    let {data} =await  axios({
+                        method: 'delete',
+                        url:`/app/group/${this.UpdateValue.id}`,
+                    })
+                    this.data1.splice( this.UpdateValue.indexNumber, 1)
+                    this.s('Great!','Group information has been removed successfully!')
+
+                    this.sending=false
+                    this.deleteModal=false
+                }catch(e){
+                    this.sending=false
+                    this.deleteModal=false
+                    this.e('Oops!','Something went wrong, please try again!')
+                }
+            }
+
+        },
+        async created()
+        {
+            this.ls();
+            try{
+                let {data} =await  axios({
+                    method: 'get',
+                    url:'/app/admin'
+                })
+                this.dataAdmin=data;
+
+            }catch(e){
+                this.e('Oops!','Something went wrong, please try again!')
+                this.le();
+            }
+            try{
+                let {data} =await  axios({
+                    method: 'get',
+                    url:'/app/guest'
+                })
+                this.dataGuest=data;
+                this.lf();
+
+            }catch(e){
+                this.e('Oops!','Something went wrong, please try again!')
+                this.le();
+            }
+
         }
+
     }
 </script>

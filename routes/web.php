@@ -19,6 +19,7 @@ Auth::routes();
 
 
 Route::resource('/app/guest','GuestController');
+Route::get('/app/admin', 'HomeController@admin')->name('admin');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::any('{slug}', [
     'uses' => 'HomeController@index',

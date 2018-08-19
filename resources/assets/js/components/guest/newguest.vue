@@ -72,6 +72,40 @@
             </Card>
         </Col>
         <!-- modal -->
+                <Modal v-model="viewModal" width="600">
+            <p slot="header" style="color:#369;text-align:center">
+                <Icon type="edit"></Icon>
+                <span> Edit</span>
+            </p>
+            <div style="">
+                <Form ref="formValidate" :model="editObj" :rules="ruleValidate" label-position="top">
+                    <FormItem label="Name" prop="name">
+                        <Input v-model="editObj.name" placeholder="Enter name" disabled></Input>
+                    </FormItem>
+                    <FormItem label="Phone" prop="phone">
+                        <Input v-model="editObj.phone" placeholder="Enter contact number" disabled></Input>
+                    </FormItem>
+                    <FormItem label="ID"  prop="nid">
+                        <Input v-model="editObj.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE" disabled></Input>
+                    </FormItem>
+                    <FormItem label="E-mail" prop="mail">
+                        <Input v-model="editObj.mail" placeholder="Enter e-mail" disabled></Input>
+                    </FormItem>
+                    <FormItem label="Birth date">
+                            <DatePicker type="date" placeholder="Select date" v-model="dob"  @on-change="dateConverter" disabled></DatePicker>
+                    </FormItem>
+                    <FormItem label="Address" prop="address">
+                        <Input v-model="editObj.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..." disabled></Input>
+                    </FormItem>
+                    <FormItem label="Gender" prop="gender">
+                        <Input v-model="editObj.gender" disabled>
+
+                        </Input>
+                    </FormItem>
+                </Form>
+            </div>
+        </Modal>
+
         <Modal v-model="editModal" width="600">
             <p slot="header" style="color:#369;text-align:center">
                 <Icon type="edit"></Icon>
@@ -92,14 +126,14 @@
                         <Input v-model="editObj.mail" placeholder="Enter e-mail"></Input>
                     </FormItem>
                     <FormItem label="Birth date">
-                            <DatePicker type="date" placeholder="Select date" v-model="editObj.dob"  @on-change="dateConverter" ></DatePicker>
+                            <DatePicker type="date" placeholder="Select date" v-model="dob"  @on-change="dateConverter" ></DatePicker>
                     </FormItem>
                     <FormItem label="Address" prop="address">
                         <Input v-model="editObj.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
                     </FormItem>
                     <FormItem label="Gender" prop="gender">
                         <RadioGroup v-model="editObj.gender">
-                            <Radio label="male" >Male</Radio>
+                            <Radio label="male">Male</Radio>
                             <Radio label="female">Female</Radio>
                         </RadioGroup>
                     </FormItem>
@@ -115,10 +149,10 @@
         <Modal v-model="deleteModal" width="360">
             <p slot="header" style="color:#f60;text-align:center">
                 <Icon type="close"></Icon>
-                <span> Delete {{UpdateValue.groupName}}</span>
+                <span> Delete</span>
             </p>
             <div style="text-align:center">
-                Are you sure you want delete {{UpdateValue.groupName}}
+                Are you sure you want delete
 
             </div>
             <div slot="footer">
@@ -135,10 +169,12 @@
     export default {
         data () {
             return {
+                viewModal:false,
                 editModal:false,
                 deleteModal:false,
                 sending:false,
                 loading:false,
+                dob: '',
                 UpdateValue:{},
                 editObj:{
                     id:'',
@@ -177,11 +213,7 @@
                         key: 'name'
                     },
                     {
-                        title: 'Email',
-                        key: 'email'
-                    },
-                    {
-                        title: 'NID',
+                        title: 'ID',
                         key: 'nid'
                     },
                     {
@@ -190,24 +222,31 @@
                     },
                     {
                         title: 'Address',
-                        key: 'address'
-                    },
-                    {
-                        title: 'Gender',
-                        key: 'gender'
-                    },
-                    {
-                        title: 'Birthdate',
-                        key: 'dob'
+                        key: 'address',
+                        width: 300,
                     },
                     {
                         title: 'Action',
                         key: 'action',
-                        width: 150,
+                        width: 200,
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
                                 h('Button', {
+                                    props: {
+                                        type: 'success',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.showView(params.index)
+                                        }
+                                    }
+                                }, 'View'),
+                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
@@ -291,13 +330,33 @@
                 }
             },
             showEdit (index) {
-                this.editObj=this.dataGuest[index]
+                this.editObj.name=this.dataGuest[index].name
+                this.editObj.gender=this.dataGuest[index].gender
+                this.editObj.mail=this.dataGuest[index].mail
+                this.editObj.phone=this.dataGuest[index].phone
+                this.editObj.nid=this.dataGuest[index].nid
+                this.editObj.address=this.dataGuest[index].address
+                this.editObj.dob=this.dataGuest[index].dob
+                this.dob=this.dataGuest[index].dob
                 this.UpdateValue.indexNumber=index
+                this.UpdateValue.id=this.dataGuest[index].id
                 this.editModal=true
             },
+            showView (index) {
+                this.editObj.name=this.dataGuest[index].name
+                this.editObj.gender=this.dataGuest[index].gender
+                this.editObj.mail=this.dataGuest[index].mail
+                this.editObj.phone=this.dataGuest[index].phone
+                this.editObj.nid=this.dataGuest[index].nid
+                this.editObj.address=this.dataGuest[index].address
+                this.editObj.dob=this.dataGuest[index].dob
+                this.dob=this.dataGuest[index].dob
+                this.UpdateValue.indexNumber=index
+                this.UpdateValue.id=this.dataGuest[index].id
+                this.viewModal=true
+            },
             showRemove (index) {
-                this.UpdateValue.groupName=this.data1[index].groupName
-                this.UpdateValue.id=this.data1[index].id
+                this.UpdateValue.id=this.dataGuest[index].id
                 this.UpdateValue.indexNumber=index
                 this.deleteModal=true
             },
@@ -305,11 +364,18 @@
                 this.sending=true
                 try{
                     let {data} =await  axios({
-                        method: 'post',
-                        url:'/app/guest',
+                        method: 'put',
+                        url:`/app/guest/${this.UpdateValue.id}`,
                         data: this.editObj
                     })
-                    this.s('Great!','Group information has been updated successfully!')
+                    this.dataGuest[this.UpdateValue.indexNumber].name=this.editObj.name
+                    this.dataGuest[this.UpdateValue.indexNumber].gender=this.editObj.gender
+                    this.dataGuest[this.UpdateValue.indexNumber].mail=this.editObj.mail
+                    this.dataGuest[this.UpdateValue.indexNumber].phone=this.editObj.phone
+                    this.dataGuest[this.UpdateValue.indexNumber].nid=this.editObj.nid
+                    this.dataGuest[this.UpdateValue.indexNumber].address=this.editObj.address
+                    this.dataGuest[this.UpdateValue.indexNumber].dob=this.editObj.dob
+                    this.s('Great!','Guest information has been updated successfully!')
 
                     this.sending=false
                     this.editModal=false
@@ -324,9 +390,9 @@
                 try{
                     let {data} =await  axios({
                         method: 'delete',
-                        url:`/app/group/${this.UpdateValue.id}`,
+                        url:`/app/guest/${this.UpdateValue.id}`,
                     })
-                    this.data1.splice( this.UpdateValue.indexNumber, 1)
+                    this.dataGuest.splice( this.UpdateValue.indexNumber, 1)
                     this.s('Great!','Group information has been removed successfully!')
 
                     this.sending=false

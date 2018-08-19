@@ -92181,16 +92181,52 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         var _this = this;
 
         return {
+            viewModal: false,
             editModal: false,
             deleteModal: false,
             sending: false,
             loading: false,
+            dob: '',
             UpdateValue: {},
             editObj: {
                 id: '',
@@ -92227,30 +92263,35 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 title: 'Name',
                 key: 'name'
             }, {
-                title: 'Email',
-                key: 'email'
-            }, {
-                title: 'NID',
+                title: 'ID',
                 key: 'nid'
             }, {
                 title: 'Phone',
                 key: 'phone'
             }, {
                 title: 'Address',
-                key: 'address'
-            }, {
-                title: 'Gender',
-                key: 'gender'
-            }, {
-                title: 'Birthdate',
-                key: 'dob'
+                key: 'address',
+                width: 300
             }, {
                 title: 'Action',
                 key: 'action',
-                width: 150,
+                width: 200,
                 align: 'center',
                 render: function render(h, params) {
                     return h('div', [h('Button', {
+                        props: {
+                            type: 'success',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '5px'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showView(params.index);
+                            }
+                        }
+                    }, 'View'), h('Button', {
                         props: {
                             type: 'primary',
                             size: 'small'
@@ -92354,13 +92395,33 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             return addGuest;
         }(),
         showEdit: function showEdit(index) {
-            this.editObj = this.dataGuest[index];
+            this.editObj.name = this.dataGuest[index].name;
+            this.editObj.gender = this.dataGuest[index].gender;
+            this.editObj.mail = this.dataGuest[index].mail;
+            this.editObj.phone = this.dataGuest[index].phone;
+            this.editObj.nid = this.dataGuest[index].nid;
+            this.editObj.address = this.dataGuest[index].address;
+            this.editObj.dob = this.dataGuest[index].dob;
+            this.dob = this.dataGuest[index].dob;
             this.UpdateValue.indexNumber = index;
+            this.UpdateValue.id = this.dataGuest[index].id;
             this.editModal = true;
         },
+        showView: function showView(index) {
+            this.editObj.name = this.dataGuest[index].name;
+            this.editObj.gender = this.dataGuest[index].gender;
+            this.editObj.mail = this.dataGuest[index].mail;
+            this.editObj.phone = this.dataGuest[index].phone;
+            this.editObj.nid = this.dataGuest[index].nid;
+            this.editObj.address = this.dataGuest[index].address;
+            this.editObj.dob = this.dataGuest[index].dob;
+            this.dob = this.dataGuest[index].dob;
+            this.UpdateValue.indexNumber = index;
+            this.UpdateValue.id = this.dataGuest[index].id;
+            this.viewModal = true;
+        },
         showRemove: function showRemove(index) {
-            this.UpdateValue.groupName = this.data1[index].groupName;
-            this.UpdateValue.id = this.data1[index].id;
+            this.UpdateValue.id = this.dataGuest[index].id;
             this.UpdateValue.indexNumber = index;
             this.deleteModal = true;
         },
@@ -92376,8 +92437,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _context2.prev = 1;
                                 _context2.next = 4;
                                 return axios({
-                                    method: 'post',
-                                    url: '/app/guest',
+                                    method: 'put',
+                                    url: '/app/guest/' + this.UpdateValue.id,
                                     data: this.editObj
                                 });
 
@@ -92385,27 +92446,34 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _ref4 = _context2.sent;
                                 data = _ref4.data;
 
-                                this.s('Great!', 'Group information has been updated successfully!');
+                                this.dataGuest[this.UpdateValue.indexNumber].name = this.editObj.name;
+                                this.dataGuest[this.UpdateValue.indexNumber].gender = this.editObj.gender;
+                                this.dataGuest[this.UpdateValue.indexNumber].mail = this.editObj.mail;
+                                this.dataGuest[this.UpdateValue.indexNumber].phone = this.editObj.phone;
+                                this.dataGuest[this.UpdateValue.indexNumber].nid = this.editObj.nid;
+                                this.dataGuest[this.UpdateValue.indexNumber].address = this.editObj.address;
+                                this.dataGuest[this.UpdateValue.indexNumber].dob = this.editObj.dob;
+                                this.s('Great!', 'Guest information has been updated successfully!');
 
                                 this.sending = false;
                                 this.editModal = false;
-                                _context2.next = 16;
+                                _context2.next = 23;
                                 break;
 
-                            case 11:
-                                _context2.prev = 11;
+                            case 18:
+                                _context2.prev = 18;
                                 _context2.t0 = _context2['catch'](1);
 
                                 this.sending = false;
                                 this.editModal = false;
                                 this.e('Oops!', 'Something went wrong, please try again!');
 
-                            case 16:
+                            case 23:
                             case 'end':
                                 return _context2.stop();
                         }
                     }
-                }, _callee2, this, [[1, 11]]);
+                }, _callee2, this, [[1, 18]]);
             }));
 
             function edit() {
@@ -92427,14 +92495,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _context3.next = 4;
                                 return axios({
                                     method: 'delete',
-                                    url: '/app/group/' + this.UpdateValue.id
+                                    url: '/app/guest/' + this.UpdateValue.id
                                 });
 
                             case 4:
                                 _ref6 = _context3.sent;
                                 data = _ref6.data;
 
-                                this.data1.splice(this.UpdateValue.indexNumber, 1);
+                                this.dataGuest.splice(this.UpdateValue.indexNumber, 1);
                                 this.s('Great!', 'Group information has been removed successfully!');
 
                                 this.sending = false;
@@ -93562,6 +93630,199 @@ var render = function() {
         {
           attrs: { width: "600" },
           model: {
+            value: _vm.viewModal,
+            callback: function($$v) {
+              _vm.viewModal = $$v
+            },
+            expression: "viewModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#369", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "edit" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" Edit")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {},
+            [
+              _c(
+                "Form",
+                {
+                  ref: "formValidate",
+                  attrs: {
+                    model: _vm.editObj,
+                    rules: _vm.ruleValidate,
+                    "label-position": "top"
+                  }
+                },
+                [
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Name", prop: "name" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter name", disabled: "" },
+                        model: {
+                          value: _vm.editObj.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "name", $$v)
+                          },
+                          expression: "editObj.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Phone", prop: "phone" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          placeholder: "Enter contact number",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "phone", $$v)
+                          },
+                          expression: "editObj.phone"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "ID", prop: "nid" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          placeholder: "Enter NID/PASSPORT/DRIVING LICENSE",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.nid,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "nid", $$v)
+                          },
+                          expression: "editObj.nid"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "E-mail", prop: "mail" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter e-mail", disabled: "" },
+                        model: {
+                          value: _vm.editObj.mail,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "mail", $$v)
+                          },
+                          expression: "editObj.mail"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Birth date" } },
+                    [
+                      _c("DatePicker", {
+                        attrs: {
+                          type: "date",
+                          placeholder: "Select date",
+                          disabled: ""
+                        },
+                        on: { "on-change": _vm.dateConverter },
+                        model: {
+                          value: _vm.dob,
+                          callback: function($$v) {
+                            _vm.dob = $$v
+                          },
+                          expression: "dob"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Address", prop: "address" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          type: "textarea",
+                          autosize: { minRows: 2, maxRows: 5 },
+                          placeholder: "Enter full address...",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.address,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "address", $$v)
+                          },
+                          expression: "editObj.address"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Gender", prop: "gender" } },
+                    [
+                      _c("Input", {
+                        attrs: { disabled: "" },
+                        model: {
+                          value: _vm.editObj.gender,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "gender", $$v)
+                          },
+                          expression: "editObj.gender"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "600" },
+          model: {
             value: _vm.editModal,
             callback: function($$v) {
               _vm.editModal = $$v
@@ -93682,11 +93943,11 @@ var render = function() {
                         attrs: { type: "date", placeholder: "Select date" },
                         on: { "on-change": _vm.dateConverter },
                         model: {
-                          value: _vm.editObj.dob,
+                          value: _vm.dob,
                           callback: function($$v) {
-                            _vm.$set(_vm.editObj, "dob", $$v)
+                            _vm.dob = $$v
                           },
-                          expression: "editObj.dob"
+                          expression: "dob"
                         }
                       })
                     ],
@@ -93801,19 +94062,13 @@ var render = function() {
             [
               _c("Icon", { attrs: { type: "close" } }),
               _vm._v(" "),
-              _c("span", [
-                _vm._v(" Delete " + _vm._s(_vm.UpdateValue.groupName))
-              ])
+              _c("span", [_vm._v(" Delete")])
             ],
             1
           ),
           _vm._v(" "),
           _c("div", { staticStyle: { "text-align": "center" } }, [
-            _vm._v(
-              "\n            Are you sure you want delete " +
-                _vm._s(_vm.UpdateValue.groupName) +
-                "\n\n        "
-            )
+            _vm._v("\n            Are you sure you want delete\n\n        ")
           ]),
           _vm._v(" "),
           _c(

@@ -30,7 +30,7 @@
                 </Alert>
                 <!-- table -->
                 <p>
-                        <Table :columns="columns1" :data="dataGuest"></Table>
+                    <Table :columns="columns1" :data="dataGuest"></Table>
                 </p>
             </Card>
         </Col>
@@ -72,7 +72,7 @@
             </Card>
         </Col>
         <!-- modal -->
-                <Modal v-model="viewModal" width="600">
+        <Modal v-model="viewModal" width="600">
             <p slot="header" style="color:#369;text-align:center">
                 <Icon type="edit"></Icon>
                 <span> Edit</span>

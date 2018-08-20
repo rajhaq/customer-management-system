@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import mainapp from './components/mainapp.vue'
 import home from './components/home.vue'
 import newguest from './components/guest/newguest.vue'
+import newbooking from './components/booking/newbooking.vue'
 Vue.use(Router)
 export default new Router({
 	  mode: 'history',
@@ -22,6 +23,11 @@ export default new Router({
 			path: '/newguest',
 			name: 'newguest',
 			component: newguest
+		},
+		{
+			path: '/newbooking',
+			name: 'newbooking',
+			component: newbooking
 		},
 	]
 })

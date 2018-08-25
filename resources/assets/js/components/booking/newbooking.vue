@@ -57,7 +57,7 @@
 </style>
 <template>
     <Row>
-        <Col span="14" offset="1">
+        <Col span="16">
             <Card class="center">
                 <Alert type="warning" >Booking List
                     <span slot="desc"></span>
@@ -68,7 +68,11 @@
                 </p>
             </Card>
         </Col>
-        <Col span="7" offset="1">
+        <Col span="1">
+            <p> &nbsp;</p>
+        </Col>
+
+        <Col span="7">
             <Card>
                 <Alert  class="center">New Booking
                 <span slot="desc"></span>
@@ -100,13 +104,20 @@
                                 <Radio label="female">Female</Radio>
                             </RadioGroup>
                         </FormItem>
+                        <FormItem label="Check In & Out">
+                                <DatePicker type="daterange" placeholder="Choose date range"  @on-change="checkDates" ></DatePicker>
+                                <!--<DatePicker type="date" placeholder="Check Out"  @on-change="dateConverter" ></DatePicker>-->
+                        </FormItem>
+                        <FormItem label="Room Numbers">
+                            <Input v-model="formValidate.phone" placeholder="Enter numbers"></Input>
+                        </FormItem>
                         <FormItem>
                             <Button type="primary" @click="addGuest">Add</Button>
                             <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
                         </FormItem>
                     </Form>
                     </TabPane>
-                    <TabPane label="Existing Guest" name="name2">标签二的内容</TabPane>
+                    <TabPane label="Existing Guest" name="name2">On Process</TabPane>
                 </Tabs>
 
             </Card>
@@ -267,7 +278,6 @@
                     {
                         title: 'Address',
                         key: 'address',
-                        width: 300,
                     },
                     {
                         title: 'Action',
@@ -324,6 +334,7 @@
 
 
                 ],
+                checkData:[],
                 ruleValidate: {
                     name: [
                         { required: true, message: 'The name cannot be empty', trigger: 'blur' }
@@ -338,6 +349,11 @@
             }
         },
         methods: {
+            checkDates(key)
+            {
+                this.checkData=key
+
+            },
             dateConverter(key)
             {
                 this.formValidate.dob=key
@@ -455,7 +471,7 @@
             try{
                 let {data} =await  axios({
                     method: 'get',
-                    url:'/app/admin'
+                    url:'/app/guest'
                 })
                 this.dataAdmin=data;
 

@@ -40,13 +40,13 @@
             </Header>
             <Layout style="min-height: 780px;">
                 <Sider hide-trigger :style="{background: '#fff',}">
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
+                    <Menu active-name="1-2" theme="light" width="auto" @on-select="menuSelect" @on-open-change="menuSelect" :open-names="['1']">
                         <Submenu name="1">
                             <template slot="title">
                                 <Icon type="ios-paper"></Icon>
                                 Guest
                             </template>
-                            <MenuItem name="1-1" :to="handleGoToMenu('/newcustomer')">New Guest</MenuItem>
+                            <MenuItem title="New Guest X" name="1-1" :to="handleGoToMenu('/newguest')">New Guest</MenuItem>
                             <MenuItem name="1-2">Guests List</MenuItem>
                             <MenuItem name="1-3">Block List</MenuItem>
                         </Submenu>
@@ -63,8 +63,9 @@
                                 <Icon type="ios-cog"></Icon>
                                 Settings
                             </template>
-                            <MenuItem name="3-1">Booking Off Day</MenuItem>
-                            <MenuItem name="3-2">Damage List</MenuItem>
+                            <MenuItem name="3-1" :to="handleGoToMenu('/room')" >Room</MenuItem>
+                            <MenuItem name="3-2">Booking Off Day</MenuItem>
+                            <MenuItem name="3-3">Damage List</MenuItem>
                         </Submenu>
                     </Menu>
                 </Sider>
@@ -84,9 +85,19 @@
 <script>
     export default {
         name: 'app-header',
+        data () {
+            return {
+                menuName:'',
+            }
+        },
         methods: {
             handleGoToMenu(d){
                 return d
+            },
+            menuSelect(k)
+            {
+                console.log(k);
+                
             },
             logout() {
                 console.log(10);

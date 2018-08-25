@@ -88792,7 +88792,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.layout[data-v-24bb2e7e]{\n    border: 1px solid #d7dde4;\n    background: #f5f7f9;\n    position: relative;\n    border-radius: 4px;\n    overflow: hidden;\n}\n.layout-logo[data-v-24bb2e7e]{\n    width: 100px;\n    height: 30px;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.layout-nav[data-v-24bb2e7e]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.layout[data-v-24bb2e7e]{\r\n    border: 1px solid #d7dde4;\r\n    background: #f5f7f9;\r\n    position: relative;\r\n    border-radius: 4px;\r\n    overflow: hidden;\n}\n.layout-logo[data-v-24bb2e7e]{\r\n    width: 100px;\r\n    height: 30px;\r\n    border-radius: 3px;\r\n    float: left;\r\n    position: relative;\r\n    top: 15px;\r\n    left: 20px;\n}\n.layout-nav[data-v-24bb2e7e]{\r\n    width: 420px;\r\n    margin: 0 auto;\r\n    margin-right: 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -88922,9 +88922,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'app-header',
+    data: function data() {
+        return {
+            menuName: ''
+        };
+    },
+
     methods: {
         handleGoToMenu: function handleGoToMenu(d) {
             return d;
+        },
+        menuSelect: function menuSelect(k) {
+            console.log(k);
         },
         logout: function logout() {
             console.log(10);
@@ -89008,6 +89017,10 @@ var render = function() {
                         theme: "light",
                         width: "auto",
                         "open-names": ["1"]
+                      },
+                      on: {
+                        "on-select": _vm.menuSelect,
+                        "on-open-change": _vm.menuSelect
                       }
                     },
                     [
@@ -89031,8 +89044,9 @@ var render = function() {
                             "MenuItem",
                             {
                               attrs: {
+                                title: "New Guest X",
                                 name: "1-1",
-                                to: _vm.handleGoToMenu("/newcustomer")
+                                to: _vm.handleGoToMenu("/newguest")
                               }
                             },
                             [_vm._v("New Guest")]
@@ -92045,7 +92059,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.center[data-v-c1cc4a5a]{\n    text-align:center;\n}\n.color-green[data-v-c1cc4a5a]{\n    width: 100px;\n    height: 30px;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.color-red[data-v-c1cc4a5a]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 10px;\n}\n.marginB[data-v-c1cc4a5a]\n{\n    margin-bottom: 24px;\n}\n", ""]);
+exports.push([module.i, "\n.center[data-v-c1cc4a5a]{\r\n    text-align:center;\n}\n.color-green[data-v-c1cc4a5a]{\r\n    width: 100px;\r\n    height: 30px;\r\n    border-radius: 3px;\r\n    float: left;\r\n    position: relative;\r\n    top: 15px;\r\n    left: 20px;\n}\n.color-red[data-v-c1cc4a5a]{\r\n    width: 420px;\r\n    margin: 0 auto;\r\n    margin-right: 10px;\n}\n.marginB[data-v-c1cc4a5a]\r\n{\r\n    margin-bottom: 24px;\n}\r\n", ""]);
 
 // exports
 
@@ -92062,6 +92076,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -92284,8 +92301,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 key: 'phone'
             }, {
                 title: 'Address',
-                key: 'address',
-                width: 300
+                key: 'address'
             }, {
                 title: 'Action',
                 key: 'action',
@@ -93407,7 +93423,7 @@ var render = function() {
     [
       _c(
         "Col",
-        { attrs: { span: "14", offset: "1" } },
+        { attrs: { span: "16" } },
         [
           _c(
             "Card",
@@ -93434,9 +93450,11 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("Col", { attrs: { span: "1" } }, [_c("p", [_vm._v("  ")])]),
+      _vm._v(" "),
       _c(
         "Col",
-        { attrs: { span: "7", offset: "1" } },
+        { attrs: { span: "7" } },
         [
           _c(
             "Card",
@@ -94204,7 +94222,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.center[data-v-3ec2009a]{\n    text-align:center;\n}\n.color-green[data-v-3ec2009a]{\n    width: 100px;\n    height: 30px;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.color-red[data-v-3ec2009a]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 10px;\n}\n.marginB[data-v-3ec2009a]\n{\n    margin-bottom: 24px;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-content[data-v-3ec2009a] {\n        height: 120px;\n        margin-top: -16px;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-content > .ivu-tabs-tabpane[data-v-3ec2009a] {\n        background: #fff;\n        padding: 16px;\n}\n.demo-tabs-style1 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab[data-v-3ec2009a] {\n        border-color: transparent;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a] {\n        border-color: #fff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab[data-v-3ec2009a]{\n        border-radius: 0;\n        background: #fff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a]{\n        border-top: 1px solid #3399ff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a]:before{\n        content: '';\n        display: block;\n        width: 100%;\n        height: 1px;\n        background: #3399ff;\n        position: absolute;\n        top: 0;\n        left: 0;\n}\n", ""]);
+exports.push([module.i, "\n.center[data-v-3ec2009a]{\r\n    text-align:center;\n}\n.color-green[data-v-3ec2009a]{\r\n    width: 100px;\r\n    height: 30px;\r\n    border-radius: 3px;\r\n    float: left;\r\n    position: relative;\r\n    top: 15px;\r\n    left: 20px;\n}\n.color-red[data-v-3ec2009a]{\r\n    width: 420px;\r\n    margin: 0 auto;\r\n    margin-right: 10px;\n}\n.marginB[data-v-3ec2009a]\r\n{\r\n    margin-bottom: 24px;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-content[data-v-3ec2009a] {\r\n        height: 120px;\r\n        margin-top: -16px;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-content > .ivu-tabs-tabpane[data-v-3ec2009a] {\r\n        background: #fff;\r\n        padding: 16px;\n}\n.demo-tabs-style1 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab[data-v-3ec2009a] {\r\n        border-color: transparent;\n}\n.demo-tabs-style1 > .ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a] {\r\n        border-color: #fff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab[data-v-3ec2009a]{\r\n        border-radius: 0;\r\n        background: #fff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a]{\r\n        border-top: 1px solid #3399ff;\n}\n.demo-tabs-style2 > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active[data-v-3ec2009a]:before{\r\n        content: '';\r\n        display: block;\r\n        width: 100%;\r\n        height: 1px;\r\n        background: #3399ff;\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -94221,6 +94239,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -94487,8 +94516,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 key: 'phone'
             }, {
                 title: 'Address',
-                key: 'address',
-                width: 300
+                key: 'address'
             }, {
                 title: 'Action',
                 key: 'action',
@@ -94535,6 +94563,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }
             }],
             dataGuest: [],
+            checkData: [],
             ruleValidate: {
                 name: [{ required: true, message: 'The name cannot be empty', trigger: 'blur' }],
                 phone: [{ required: true, message: 'Please enter phone number', trigger: 'blur' }],
@@ -94544,6 +94573,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
 
     methods: {
+        checkDates: function checkDates(key) {
+            this.checkData = key;
+        },
         dateConverter: function dateConverter(key) {
             this.formValidate.dob = key;
             this.editObj.dob = key;
@@ -94763,7 +94795,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             _context4.next = 4;
                             return axios({
                                 method: 'get',
-                                url: '/app/admin'
+                                url: '/app/guest'
                             });
 
                         case 4:
@@ -94836,7 +94868,7 @@ var render = function() {
     [
       _c(
         "Col",
-        { attrs: { span: "14", offset: "1" } },
+        { attrs: { span: "16" } },
         [
           _c(
             "Card",
@@ -94863,9 +94895,11 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("Col", { attrs: { span: "1" } }, [_c("p", [_vm._v("  ")])]),
+      _vm._v(" "),
       _c(
         "Col",
-        { attrs: { span: "7", offset: "1" } },
+        { attrs: { span: "7" } },
         [
           _c(
             "Card",
@@ -95038,6 +95072,39 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "FormItem",
+                            { attrs: { label: "Check In & Out" } },
+                            [
+                              _c("DatePicker", {
+                                attrs: {
+                                  type: "daterange",
+                                  placeholder: "Choose date range"
+                                },
+                                on: { "on-change": _vm.checkDates }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "FormItem",
+                            { attrs: { label: "Room Numbers" } },
+                            [
+                              _c("Input", {
+                                attrs: { placeholder: "Enter numbers" },
+                                model: {
+                                  value: _vm.formValidate.phone,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formValidate, "phone", $$v)
+                                  },
+                                  expression: "formValidate.phone"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "FormItem",
                             [
                               _c(
                                 "Button",
@@ -95073,7 +95140,7 @@ var render = function() {
                   _c(
                     "TabPane",
                     { attrs: { label: "Existing Guest", name: "name2" } },
-                    [_vm._v("标签二的内容")]
+                    [_vm._v("On Process")]
                   )
                 ],
                 1

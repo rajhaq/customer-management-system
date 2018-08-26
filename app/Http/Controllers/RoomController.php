@@ -41,15 +41,13 @@ class RoomController extends Controller
         $admin_id=Auth::user()->id;
         $input=$request->all();
         // create guest
-        $created=Guest::create([
+        $created=Room::create([
             'admin_id' => $admin_id,
             'name' => $input['name'],
-            'mail' => $input['mail'],
-            'phone' => $input['phone'],
-            'nid' => $input['nid'],
-            'address' => $input['address'],
-            'gender' => $input['gender'],
-            'dob' => $input['dob'],
+            'number' => $input['number'],
+            'rent' => $input['rent'],
+            'capacity' => $input['capacity'],
+            'remarks' => $input['remarks'],
         ]);
         return response()->json([
                 'msg' => 'Inserted',
@@ -90,17 +88,15 @@ class RoomController extends Controller
     {
         $admin_id=Auth::user()->id;
         $input=$request->all();
-        $update=Guest::where('id',$id)->update(
+        $update=Room::where('id',$id)->update(
             [
                 'admin_id' => $admin_id,
                 'name' => $input['name'],
-                'mail' => $input['mail'],
-                'phone' => $input['phone'],
-                'nid' => $input['nid'],
-                'address' => $input['address'],
-                'gender' => $input['gender'],
-                'dob' => $input['dob'],
-            ]
+                'number' => $input['number'],
+                'rent' => $input['rent'],
+                'capacity' => $input['capacity'],
+                'remarks' => $input['remarks'],
+                ]
         );
         return response()->json([
             'msg'=>'success',
@@ -109,7 +105,7 @@ class RoomController extends Controller
     }
     public function guestUpdate(Request $request)
     {
-        return Guest::where('id',$request->id)->update($request->all());
+        return Room::where('id',$request->id)->update($request->all());
     }
 
     /**
@@ -120,7 +116,7 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        $destroy = Guest::where('id','=',$id)
+        $destroy = Room::where('id','=',$id)
           ->first();
           if($destroy->count()){
             $destroy->delete();

@@ -25,12 +25,12 @@
     <Row>
         <Col span="16" >
             <Card class="center">
-                <Alert type="warning" >Guest List
+                <Alert type="warning" >Room List
                     <span slot="desc"></span>
                 </Alert>
                 <!-- table -->
                 <p>
-                    <Table :columns="columns1" :data="dataGuest"></Table>
+                    <Table :columns="columns1" :data="dataRoom"></Table>
                 </p>
             </Card>
         </Col>
@@ -39,36 +39,27 @@
         </Col>
         <Col span="7">
             <Card>
-                    <Alert  class="center">New Guest
+                    <Alert  class="center">New Room
                     <span slot="desc"></span>
                     </Alert >
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
                     <FormItem label="Name" prop="name">
                         <Input v-model="formValidate.name" placeholder="Enter name"></Input>
                     </FormItem>
-                    <FormItem label="Phone" prop="phone">
-                        <Input v-model="formValidate.phone" placeholder="Enter contact number"></Input>
+                    <FormItem label="Room Number" prop="number">
+                        <Input v-model="formValidate.number" placeholder="Enter room number"></Input>
                     </FormItem>
-                    <FormItem label="ID"  prop="nid">
-                        <Input v-model="formValidate.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
+                    <FormItem label="Rent"  >
+                        <Input v-model="formValidate.rent" placeholder="Enter rent"></Input>
                     </FormItem>
-                    <FormItem label="E-mail" prop="mail">
-                        <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
+                    <FormItem label="Capactiy" >
+                        <Input v-model="formValidate.capacity" placeholder="Enter guests capacity"></Input>
                     </FormItem>
-                    <FormItem label="Birth date">
-                            <DatePicker type="date" placeholder="Select date"  @on-change="dateConverter" ></DatePicker>
-                    </FormItem>
-                    <FormItem label="Address" prop="address">
-                        <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
-                    </FormItem>
-                    <FormItem label="Gender" prop="gender">
-                        <RadioGroup v-model="formValidate.gender">
-                            <Radio label="male" >Male</Radio>
-                            <Radio label="female">Female</Radio>
-                        </RadioGroup>
+                    <FormItem label="Detailed information">
+                        <Input v-model="formValidate.remarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter information..."></Input>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" @click="addGuest">Add</Button>
+                        <Button type="primary" @click="add">Add</Button>
                         <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
                     </FormItem>
                 </Form>
@@ -81,30 +72,23 @@
                 <span> Edit</span>
             </p>
             <div style="">
-                <Form ref="formValidate" :model="editObj" :rules="ruleValidate" label-position="top">
+                <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
                     <FormItem label="Name" prop="name">
                         <Input v-model="editObj.name" placeholder="Enter name" disabled></Input>
                     </FormItem>
-                    <FormItem label="Phone" prop="phone">
-                        <Input v-model="editObj.phone" placeholder="Enter contact number" disabled></Input>
+                    <FormItem label="Room Number" prop="number">
+                        <Input v-model="editObj.number" placeholder="Enter room number" disabled></Input>
                     </FormItem>
-                    <FormItem label="ID"  prop="nid">
-                        <Input v-model="editObj.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE" disabled></Input>
+                    <FormItem label="Rent"  >
+                        <Input v-model="editObj.rent" placeholder="Enter rent" disabled></Input>
                     </FormItem>
-                    <FormItem label="E-mail" prop="mail">
-                        <Input v-model="editObj.mail" placeholder="Enter e-mail" disabled></Input>
+                    <FormItem label="Capactiy" >
+                        <Input v-model="editObj.capacity" placeholder="Enter guests capacity" disabled></Input>
                     </FormItem>
-                    <FormItem label="Birth date">
-                            <DatePicker type="date" placeholder="Select date" v-model="dob"  @on-change="dateConverter" disabled></DatePicker>
+                    <FormItem label="Detailed information">
+                        <Input v-model="editObj.remarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter information..." disabled></Input>
                     </FormItem>
-                    <FormItem label="Address" prop="address">
-                        <Input v-model="editObj.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..." disabled></Input>
-                    </FormItem>
-                    <FormItem label="Gender" prop="gender">
-                        <Input v-model="editObj.gender" disabled>
 
-                        </Input>
-                    </FormItem>
                 </Form>
             </div>
         </Modal>
@@ -115,30 +99,21 @@
                 <span> Edit</span>
             </p>
             <div style="">
-                <Form ref="formValidate" :model="editObj" :rules="ruleValidate" label-position="top">
+                <Form ref="editObj" :model="editObj" :rules="ruleValidate" label-position="top">
                     <FormItem label="Name" prop="name">
                         <Input v-model="editObj.name" placeholder="Enter name"></Input>
                     </FormItem>
-                    <FormItem label="Phone" prop="phone">
-                        <Input v-model="editObj.phone" placeholder="Enter contact number"></Input>
+                    <FormItem label="Room Number" prop="number">
+                        <Input v-model="editObj.number" placeholder="Enter room number"></Input>
                     </FormItem>
-                    <FormItem label="ID"  prop="nid">
-                        <Input v-model="editObj.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
+                    <FormItem label="Rent"  >
+                        <Input v-model="editObj.rent" placeholder="Enter rent"></Input>
                     </FormItem>
-                    <FormItem label="E-mail" prop="mail">
-                        <Input v-model="editObj.mail" placeholder="Enter e-mail"></Input>
+                    <FormItem label="Capactiy" >
+                        <Input v-model="editObj.capacity" placeholder="Enter guests capacity"></Input>
                     </FormItem>
-                    <FormItem label="Birth date">
-                            <DatePicker type="date" placeholder="Select date" v-model="dob"  @on-change="dateConverter" ></DatePicker>
-                    </FormItem>
-                    <FormItem label="Address" prop="address">
-                        <Input v-model="editObj.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
-                    </FormItem>
-                    <FormItem label="Gender" prop="gender">
-                        <RadioGroup v-model="editObj.gender">
-                            <Radio label="male">Male</Radio>
-                            <Radio label="female">Female</Radio>
-                        </RadioGroup>
+                    <FormItem label="Detailed information">
+                        <Input v-model="editObj.remarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter information..."></Input>
                     </FormItem>
                 </Form>
             </div>
@@ -182,13 +157,10 @@
                 editObj:{
                     id:'',
                     name: '',
-                    mail: '',
-                    phone: '',
-                    nid: '',
-                    address: '',
-                    gender: '',
-                    dob: '',
-                    admin_id: '',
+                    number: '',
+                    rent: '',
+                    capacity: '',
+                    remarks: '',
                 },
                 options3: {
                     disabledDate (date) {
@@ -203,12 +175,10 @@
                 },
                  formValidate: {
                     name: '',
-                    mail: '',
-                    phone: '',
-                    nid: '',
-                    address: '',
-                    gender: '',
-                    dob: '',
+                    number: '',
+                    rent: '',
+                    capacity: '',
+                    remarks: '',
                     },
                 columns1: [
                     {
@@ -216,16 +186,20 @@
                         key: 'name'
                     },
                     {
-                        title: 'ID',
-                        key: 'nid'
+                        title: 'Number',
+                        key: 'number'
                     },
                     {
-                        title: 'Phone',
-                        key: 'phone'
+                        title: 'Rent',
+                        key: 'rent'
                     },
                     {
-                        title: 'Address',
-                        key: 'address',
+                        title: 'Capacity',
+                        key: 'capacity'
+                    },
+                    {
+                        title: 'Info',
+                        key: 'remarks',
                     },
                     {
                         title: 'Action',
@@ -277,7 +251,7 @@
                         }
                     }
                 ],
-                dataGuest: [
+                dataRoom: [
 
 
 
@@ -286,26 +260,18 @@
                     name: [
                         { required: true, message: 'The name cannot be empty', trigger: 'blur' }
                     ],
-                    phone: [
-                        { required: true, message: 'Please enter phone number', trigger: 'blur' }
+                    number: [
+                        { required: true, message: 'Please enter room number', trigger: 'blur' }
                     ],
-                    nid: [
-                        { required: true, message: 'Please enter phone NID', trigger: 'blur' }
-                    ],
+
                 }
             }
         },
         methods: {
-            dateConverter(key)
-            {
-                this.formValidate.dob=key
-                this.editObj.dob=key
-
-            },
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.addGuest()
+                        this.add()
                         this.$Message.success('Success!');
                     } else {
                         this.$Message.error('Fail!');
@@ -315,16 +281,16 @@
             handleReset (name) {
                 this.$refs[name].resetFields();
             },
-            async addGuest(){
+            async add(){
                 this.loading=true
                 try{
                     let {data} =await  axios({
                         method: 'post',
-                        url:'/app/guest',
+                        url:'/app/room',
                         data: this.formValidate
                     })
-                    this.dataGuest.unshift(data.status)
-                    this.s('Great!','Guest has been added successfully!')
+                    this.dataRoom.unshift(data.status)
+                    this.s('Great!','Room has been added successfully!')
                     this.loading=false
                 }catch(e){
                     this.loading=false
@@ -332,33 +298,27 @@
                 }
             },
             showEdit (index) {
-                this.editObj.name=this.dataGuest[index].name
-                this.editObj.gender=this.dataGuest[index].gender
-                this.editObj.mail=this.dataGuest[index].mail
-                this.editObj.phone=this.dataGuest[index].phone
-                this.editObj.nid=this.dataGuest[index].nid
-                this.editObj.address=this.dataGuest[index].address
-                this.editObj.dob=this.dataGuest[index].dob
-                this.dob=this.dataGuest[index].dob
+                this.editObj.name=this.dataRoom[index].name
+                this.editObj.number=this.dataRoom[index].number
+                this.editObj.rent=this.dataRoom[index].rent
+                this.editObj.capacity=this.dataRoom[index].capacity
+                this.editObj.remarks=this.dataRoom[index].remarks
                 this.UpdateValue.indexNumber=index
-                this.UpdateValue.id=this.dataGuest[index].id
+                this.UpdateValue.id=this.dataRoom[index].id
                 this.editModal=true
             },
             showView (index) {
-                this.editObj.name=this.dataGuest[index].name
-                this.editObj.gender=this.dataGuest[index].gender
-                this.editObj.mail=this.dataGuest[index].mail
-                this.editObj.phone=this.dataGuest[index].phone
-                this.editObj.nid=this.dataGuest[index].nid
-                this.editObj.address=this.dataGuest[index].address
-                this.editObj.dob=this.dataGuest[index].dob
-                this.dob=this.dataGuest[index].dob
+                this.editObj.name=this.dataRoom[index].name
+                this.editObj.number=this.dataRoom[index].number
+                this.editObj.rent=this.dataRoom[index].rent
+                this.editObj.capacity=this.dataRoom[index].capacity
+                this.editObj.remarks=this.dataRoom[index].remarks
                 this.UpdateValue.indexNumber=index
-                this.UpdateValue.id=this.dataGuest[index].id
+                this.UpdateValue.id=this.dataRoom[index].id
                 this.viewModal=true
             },
             showRemove (index) {
-                this.UpdateValue.id=this.dataGuest[index].id
+                this.UpdateValue.id=this.dataRoom[index].id
                 this.UpdateValue.indexNumber=index
                 this.deleteModal=true
             },
@@ -367,17 +327,15 @@
                 try{
                     let {data} =await  axios({
                         method: 'put',
-                        url:`/app/guest/${this.UpdateValue.id}`,
+                        url:`/app/room/${this.UpdateValue.id}`,
                         data: this.editObj
                     })
-                    this.dataGuest[this.UpdateValue.indexNumber].name=this.editObj.name
-                    this.dataGuest[this.UpdateValue.indexNumber].gender=this.editObj.gender
-                    this.dataGuest[this.UpdateValue.indexNumber].mail=this.editObj.mail
-                    this.dataGuest[this.UpdateValue.indexNumber].phone=this.editObj.phone
-                    this.dataGuest[this.UpdateValue.indexNumber].nid=this.editObj.nid
-                    this.dataGuest[this.UpdateValue.indexNumber].address=this.editObj.address
-                    this.dataGuest[this.UpdateValue.indexNumber].dob=this.editObj.dob
-                    this.s('Great!','Guest information has been updated successfully!')
+                    this.dataRoom[this.UpdateValue.indexNumber].name=this.editObj.name
+                    this.dataRoom[this.UpdateValue.indexNumber].number=this.editObj.number
+                    this.dataRoom[this.UpdateValue.indexNumber].rent=this.editObj.rent
+                    this.dataRoom[this.UpdateValue.indexNumber].capacity=this.editObj.capacity
+                    this.dataRoom[this.UpdateValue.indexNumber].remarks=this.editObj.remarks
+                    this.s('Great!','Room information has been updated successfully!')
 
                     this.sending=false
                     this.editModal=false
@@ -392,10 +350,10 @@
                 try{
                     let {data} =await  axios({
                         method: 'delete',
-                        url:`/app/guest/${this.UpdateValue.id}`,
+                        url:`/app/room/${this.UpdateValue.id}`,
                     })
-                    this.dataGuest.splice( this.UpdateValue.indexNumber, 1)
-                    this.s('Great!','Group information has been removed successfully!')
+                    this.dataRoom.splice( this.UpdateValue.indexNumber, 1)
+                    this.s('Great!','Room information has been removed successfully!')
 
                     this.sending=false
                     this.deleteModal=false
@@ -410,23 +368,13 @@
         async created()
         {
             this.ls();
-            try{
-                let {data} =await  axios({
-                    method: 'get',
-                    url:'/app/admin'
-                })
-                this.dataAdmin=data;
 
-            }catch(e){
-                this.e('Oops!','Something went wrong, please try again!')
-                this.le();
-            }
             try{
                 let {data} =await  axios({
                     method: 'get',
-                    url:'/app/guest'
+                    url:'/app/room'
                 })
-                this.dataGuest=data;
+                this.dataRoom=data;
                 this.lf();
 
             }catch(e){

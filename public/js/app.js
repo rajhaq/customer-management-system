@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(9);
+var bind = __webpack_require__(10);
 var isBuffer = __webpack_require__(25);
 
 /*global toString:true*/
@@ -11561,110 +11561,6 @@ module.exports = function normalizeComponent (
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(27);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(11);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(11);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
@@ -11890,7 +11786,118 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(27);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(12);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(12);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(69);
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14431,7 +14438,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24802,7 +24809,7 @@ return jQuery;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24820,7 +24827,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -25010,7 +25017,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25021,7 +25028,7 @@ var settle = __webpack_require__(28);
 var buildURL = __webpack_require__(30);
 var parseHeaders = __webpack_require__(31);
 var isURLSameOrigin = __webpack_require__(32);
-var createError = __webpack_require__(12);
+var createError = __webpack_require__(13);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(33);
 
 module.exports = function xhrAdapter(config) {
@@ -25197,7 +25204,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25222,7 +25229,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25234,7 +25241,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25260,7 +25267,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -25311,18 +25318,11 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(69);
-
-
-/***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(18);
-module.exports = __webpack_require__(77);
+module.exports = __webpack_require__(82);
 
 
 /***/ }),
@@ -25356,7 +25356,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_ivie
 
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.mixin(__WEBPACK_IMPORTED_MODULE_4__common__["a" /* default */]);
 
-__WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('mainapp', __webpack_require__(15));
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('mainapp', __webpack_require__(16));
 
 var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     el: '#app',
@@ -25369,7 +25369,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
 
 
 window._ = __webpack_require__(20);
-window.Popper = __webpack_require__(7).default;
+window.Popper = __webpack_require__(8).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -25378,7 +25378,7 @@ window.Popper = __webpack_require__(7).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(8);
+  window.$ = window.jQuery = __webpack_require__(9);
 
   __webpack_require__(22);
 } catch (e) {}
@@ -42575,7 +42575,7 @@ module.exports = function(module) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(8), __webpack_require__(7)) :
+   true ? factory(exports, __webpack_require__(9), __webpack_require__(8)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -46529,9 +46529,9 @@ module.exports = __webpack_require__(24);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(9);
+var bind = __webpack_require__(10);
 var Axios = __webpack_require__(26);
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -46564,9 +46564,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(14);
+axios.Cancel = __webpack_require__(15);
 axios.CancelToken = __webpack_require__(40);
-axios.isCancel = __webpack_require__(13);
+axios.isCancel = __webpack_require__(14);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -46614,7 +46614,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(5);
+var defaults = __webpack_require__(6);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(35);
 var dispatchRequest = __webpack_require__(36);
@@ -46719,7 +46719,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(12);
+var createError = __webpack_require__(13);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -47152,8 +47152,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(37);
-var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(5);
+var isCancel = __webpack_require__(14);
+var defaults = __webpack_require__(6);
 var isAbsoluteURL = __webpack_require__(38);
 var combineURLs = __webpack_require__(39);
 
@@ -47312,7 +47312,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(14);
+var Cancel = __webpack_require__(15);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -47664,7 +47664,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(11)))
 
 /***/ }),
 /* 44 */
@@ -88768,7 +88768,7 @@ var content = __webpack_require__(56);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("3b9202da", content, false, {});
+var update = __webpack_require__(5)("3b9202da", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -88836,6 +88836,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -89113,11 +89114,22 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "3-1" } }, [
+                          _c(
+                            "MenuItem",
+                            {
+                              attrs: {
+                                name: "3-1",
+                                to: _vm.handleGoToMenu("/room")
+                              }
+                            },
+                            [_vm._v("Room")]
+                          ),
+                          _vm._v(" "),
+                          _c("MenuItem", { attrs: { name: "3-2" } }, [
                             _vm._v("Booking Off Day")
                           ]),
                           _vm._v(" "),
-                          _c("MenuItem", { attrs: { name: "3-2" } }, [
+                          _c("MenuItem", { attrs: { name: "3-3" } }, [
                             _vm._v("Damage List")
                           ])
                         ],
@@ -89188,7 +89200,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mainapp_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mainapp_vue__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mainapp_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_mainapp_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_home_vue__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_home_vue__);
@@ -89196,6 +89208,9 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_guest_newguest_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_guest_newguest_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_booking_newbooking_vue__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_booking_newbooking_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_booking_newbooking_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_room_room_vue__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_room_room_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_room_room_vue__);
+
 
 
 
@@ -89221,6 +89236,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 		path: '/newbooking',
 		name: 'newbooking',
 		component: __WEBPACK_IMPORTED_MODULE_5__components_booking_newbooking_vue___default.a
+	}, {
+		path: '/room',
+		name: 'room',
+		component: __WEBPACK_IMPORTED_MODULE_6__components_room_room_vue___default.a
 	}]
 }));
 
@@ -92035,7 +92054,7 @@ var content = __webpack_require__(67);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("2e821622", content, false, {});
+var update = __webpack_require__(5)("2e821622", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -92070,7 +92089,7 @@ exports.push([module.i, "\n.center[data-v-c1cc4a5a]{\r\n    text-align:center;\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 
 
@@ -94198,7 +94217,7 @@ var content = __webpack_require__(74);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("07856d05", content, false, {});
+var update = __webpack_require__(5)("07856d05", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -94233,7 +94252,7 @@ exports.push([module.i, "\n.center[data-v-3ec2009a]{\r\n    text-align:center;\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 
 
@@ -95640,6 +95659,1194 @@ if (false) {
 
 /***/ }),
 /* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(78)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(80)
+/* template */
+var __vue_template__ = __webpack_require__(81)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-60536016"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\room\\room.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-60536016", Component.options)
+  } else {
+    hotAPI.reload("data-v-60536016", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(79);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("2f9406d3", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60536016\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./room.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60536016\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./room.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.center[data-v-60536016]{\n    text-align:center;\n}\n.color-green[data-v-60536016]{\n    width: 100px;\n    height: 30px;\n    border-radius: 3px;\n    float: left;\n    position: relative;\n    top: 15px;\n    left: 20px;\n}\n.color-red[data-v-60536016]{\n    width: 420px;\n    margin: 0 auto;\n    margin-right: 10px;\n}\n.marginB[data-v-60536016]\n{\n    margin-bottom: 24px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        return {
+            viewModal: false,
+            editModal: false,
+            deleteModal: false,
+            sending: false,
+            loading: false,
+            dob: '',
+            UpdateValue: {},
+            editObj: {
+                id: '',
+                name: '',
+                number: '',
+                rent: '',
+                capacity: '',
+                remarks: ''
+            },
+            options3: {
+                disabledDate: function disabledDate(date) {
+                    return date && date.valueOf() < Date.now() - 86400000;
+                }
+            },
+            options4: {
+                disabledDate: function disabledDate(date) {
+                    var disabledDay = date.getDate();
+                    return disabledDay === 15;
+                }
+            },
+            formValidate: {
+                name: '',
+                number: '',
+                rent: '',
+                capacity: '',
+                remarks: ''
+            },
+            columns1: [{
+                title: 'Name',
+                key: 'name'
+            }, {
+                title: 'Number',
+                key: 'number'
+            }, {
+                title: 'Rent',
+                key: 'rent'
+            }, {
+                title: 'Capacity',
+                key: 'capacity'
+            }, {
+                title: 'Info',
+                key: 'remarks'
+            }, {
+                title: 'Action',
+                key: 'action',
+                width: 200,
+                align: 'center',
+                render: function render(h, params) {
+                    return h('div', [h('Button', {
+                        props: {
+                            type: 'success',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '5px'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showView(params.index);
+                            }
+                        }
+                    }, 'View'), h('Button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small'
+                        },
+                        style: {
+                            marginRight: '5px'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showEdit(params.index);
+                            }
+                        }
+                    }, 'Edit'), h('Button', {
+                        props: {
+                            type: 'error',
+                            size: 'small'
+                        },
+                        on: {
+                            click: function click() {
+                                _this.showRemove(params.index);
+                            }
+                        }
+                    }, 'Delete')]);
+                }
+            }],
+            dataRoom: [],
+            ruleValidate: {
+                name: [{ required: true, message: 'The name cannot be empty', trigger: 'blur' }],
+                number: [{ required: true, message: 'Please enter room number', trigger: 'blur' }]
+
+            }
+        };
+    },
+
+    methods: {
+        handleSubmit: function handleSubmit(name) {
+            var _this2 = this;
+
+            this.$refs[name].validate(function (valid) {
+                if (valid) {
+                    _this2.add();
+                    _this2.$Message.success('Success!');
+                } else {
+                    _this2.$Message.error('Fail!');
+                }
+            });
+        },
+        handleReset: function handleReset(name) {
+            this.$refs[name].resetFields();
+        },
+        add: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var _ref2, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                this.loading = true;
+                                _context.prev = 1;
+                                _context.next = 4;
+                                return axios({
+                                    method: 'post',
+                                    url: '/app/room',
+                                    data: this.formValidate
+                                });
+
+                            case 4:
+                                _ref2 = _context.sent;
+                                data = _ref2.data;
+
+                                this.dataRoom.unshift(data.status);
+                                this.s('Great!', 'Room has been added successfully!');
+                                this.loading = false;
+                                _context.next = 15;
+                                break;
+
+                            case 11:
+                                _context.prev = 11;
+                                _context.t0 = _context['catch'](1);
+
+                                this.loading = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 15:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this, [[1, 11]]);
+            }));
+
+            function add() {
+                return _ref.apply(this, arguments);
+            }
+
+            return add;
+        }(),
+        showEdit: function showEdit(index) {
+            this.editObj.name = this.dataRoom[index].name;
+            this.editObj.number = this.dataRoom[index].number;
+            this.editObj.rent = this.dataRoom[index].rent;
+            this.editObj.capacity = this.dataRoom[index].capacity;
+            this.editObj.remarks = this.dataRoom[index].remarks;
+            this.UpdateValue.indexNumber = index;
+            this.UpdateValue.id = this.dataRoom[index].id;
+            this.editModal = true;
+        },
+        showView: function showView(index) {
+            this.editObj.name = this.dataRoom[index].name;
+            this.editObj.number = this.dataRoom[index].number;
+            this.editObj.rent = this.dataRoom[index].rent;
+            this.editObj.capacity = this.dataRoom[index].capacity;
+            this.editObj.remarks = this.dataRoom[index].remarks;
+            this.UpdateValue.indexNumber = index;
+            this.UpdateValue.id = this.dataRoom[index].id;
+            this.viewModal = true;
+        },
+        showRemove: function showRemove(index) {
+            this.UpdateValue.id = this.dataRoom[index].id;
+            this.UpdateValue.indexNumber = index;
+            this.deleteModal = true;
+        },
+        edit: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+                var _ref4, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                this.sending = true;
+                                _context2.prev = 1;
+                                _context2.next = 4;
+                                return axios({
+                                    method: 'put',
+                                    url: '/app/room/' + this.UpdateValue.id,
+                                    data: this.editObj
+                                });
+
+                            case 4:
+                                _ref4 = _context2.sent;
+                                data = _ref4.data;
+
+                                this.dataRoom[this.UpdateValue.indexNumber].name = this.editObj.name;
+                                this.dataRoom[this.UpdateValue.indexNumber].number = this.editObj.number;
+                                this.dataRoom[this.UpdateValue.indexNumber].rent = this.editObj.rent;
+                                this.dataRoom[this.UpdateValue.indexNumber].capacity = this.editObj.capacity;
+                                this.dataRoom[this.UpdateValue.indexNumber].remarks = this.editObj.remarks;
+                                this.s('Great!', 'Room information has been updated successfully!');
+
+                                this.sending = false;
+                                this.editModal = false;
+                                _context2.next = 21;
+                                break;
+
+                            case 16:
+                                _context2.prev = 16;
+                                _context2.t0 = _context2['catch'](1);
+
+                                this.sending = false;
+                                this.editModal = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 21:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this, [[1, 16]]);
+            }));
+
+            function edit() {
+                return _ref3.apply(this, arguments);
+            }
+
+            return edit;
+        }(),
+        remove: function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
+                var _ref6, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                this.sending = true;
+                                _context3.prev = 1;
+                                _context3.next = 4;
+                                return axios({
+                                    method: 'delete',
+                                    url: '/app/room/' + this.UpdateValue.id
+                                });
+
+                            case 4:
+                                _ref6 = _context3.sent;
+                                data = _ref6.data;
+
+                                this.dataRoom.splice(this.UpdateValue.indexNumber, 1);
+                                this.s('Great!', 'Room information has been removed successfully!');
+
+                                this.sending = false;
+                                this.deleteModal = false;
+                                _context3.next = 17;
+                                break;
+
+                            case 12:
+                                _context3.prev = 12;
+                                _context3.t0 = _context3['catch'](1);
+
+                                this.sending = false;
+                                this.deleteModal = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 17:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this, [[1, 12]]);
+            }));
+
+            function remove() {
+                return _ref5.apply(this, arguments);
+            }
+
+            return remove;
+        }()
+    },
+    created: function () {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
+            var _ref8, data;
+
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            this.ls();
+
+                            _context4.prev = 1;
+                            _context4.next = 4;
+                            return axios({
+                                method: 'get',
+                                url: '/app/room'
+                            });
+
+                        case 4:
+                            _ref8 = _context4.sent;
+                            data = _ref8.data;
+
+                            this.dataRoom = data;
+                            this.lf();
+
+                            _context4.next = 14;
+                            break;
+
+                        case 10:
+                            _context4.prev = 10;
+                            _context4.t0 = _context4['catch'](1);
+
+                            this.e('Oops!', 'Something went wrong, please try again!');
+                            this.le();
+
+                        case 14:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, this, [[1, 10]]);
+        }));
+
+        function created() {
+            return _ref7.apply(this, arguments);
+        }
+
+        return created;
+    }()
+});
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "Row",
+    [
+      _c(
+        "Col",
+        { attrs: { span: "16" } },
+        [
+          _c(
+            "Card",
+            { staticClass: "center" },
+            [
+              _c("Alert", { attrs: { type: "warning" } }, [
+                _vm._v("Room List\n                "),
+                _c("span", { attrs: { slot: "desc" }, slot: "desc" })
+              ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                [
+                  _c("Table", {
+                    attrs: { columns: _vm.columns1, data: _vm.dataRoom }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("Col", { attrs: { span: "1" } }, [_c("p", [_vm._v("  ")])]),
+      _vm._v(" "),
+      _c(
+        "Col",
+        { attrs: { span: "7" } },
+        [
+          _c(
+            "Card",
+            [
+              _c("Alert", { staticClass: "center" }, [
+                _vm._v("New Room\n                "),
+                _c("span", { attrs: { slot: "desc" }, slot: "desc" })
+              ]),
+              _vm._v(" "),
+              _c(
+                "Form",
+                {
+                  ref: "formValidate",
+                  attrs: {
+                    model: _vm.formValidate,
+                    rules: _vm.ruleValidate,
+                    "label-position": "top"
+                  }
+                },
+                [
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Name", prop: "name" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter name" },
+                        model: {
+                          value: _vm.formValidate.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formValidate, "name", $$v)
+                          },
+                          expression: "formValidate.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Room Number", prop: "number" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter room number" },
+                        model: {
+                          value: _vm.formValidate.number,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formValidate, "number", $$v)
+                          },
+                          expression: "formValidate.number"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Rent" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter rent" },
+                        model: {
+                          value: _vm.formValidate.rent,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formValidate, "rent", $$v)
+                          },
+                          expression: "formValidate.rent"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Capactiy" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter guests capacity" },
+                        model: {
+                          value: _vm.formValidate.capacity,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formValidate, "capacity", $$v)
+                          },
+                          expression: "formValidate.capacity"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Detailed information" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          type: "textarea",
+                          autosize: { minRows: 2, maxRows: 5 },
+                          placeholder: "Enter information..."
+                        },
+                        model: {
+                          value: _vm.formValidate.remarks,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formValidate, "remarks", $$v)
+                          },
+                          expression: "formValidate.remarks"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    [
+                      _c(
+                        "Button",
+                        { attrs: { type: "primary" }, on: { click: _vm.add } },
+                        [_vm._v("Add")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "Button",
+                        {
+                          staticStyle: { "margin-left": "8px" },
+                          on: {
+                            click: function($event) {
+                              _vm.handleReset("formValidate")
+                            }
+                          }
+                        },
+                        [_vm._v("Reset")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "600" },
+          model: {
+            value: _vm.viewModal,
+            callback: function($$v) {
+              _vm.viewModal = $$v
+            },
+            expression: "viewModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#369", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "edit" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" Edit")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {},
+            [
+              _c(
+                "Form",
+                {
+                  ref: "formValidate",
+                  attrs: {
+                    model: _vm.formValidate,
+                    rules: _vm.ruleValidate,
+                    "label-position": "top"
+                  }
+                },
+                [
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Name", prop: "name" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter name", disabled: "" },
+                        model: {
+                          value: _vm.editObj.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "name", $$v)
+                          },
+                          expression: "editObj.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Room Number", prop: "number" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          placeholder: "Enter room number",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.number,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "number", $$v)
+                          },
+                          expression: "editObj.number"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Rent" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter rent", disabled: "" },
+                        model: {
+                          value: _vm.editObj.rent,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "rent", $$v)
+                          },
+                          expression: "editObj.rent"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Capactiy" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          placeholder: "Enter guests capacity",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.capacity,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "capacity", $$v)
+                          },
+                          expression: "editObj.capacity"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Detailed information" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          type: "textarea",
+                          autosize: { minRows: 2, maxRows: 5 },
+                          placeholder: "Enter information...",
+                          disabled: ""
+                        },
+                        model: {
+                          value: _vm.editObj.remarks,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "remarks", $$v)
+                          },
+                          expression: "editObj.remarks"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "600" },
+          model: {
+            value: _vm.editModal,
+            callback: function($$v) {
+              _vm.editModal = $$v
+            },
+            expression: "editModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#369", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "edit" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" Edit")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {},
+            [
+              _c(
+                "Form",
+                {
+                  ref: "editObj",
+                  attrs: {
+                    model: _vm.editObj,
+                    rules: _vm.ruleValidate,
+                    "label-position": "top"
+                  }
+                },
+                [
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Name", prop: "name" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter name" },
+                        model: {
+                          value: _vm.editObj.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "name", $$v)
+                          },
+                          expression: "editObj.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Room Number", prop: "number" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter room number" },
+                        model: {
+                          value: _vm.editObj.number,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "number", $$v)
+                          },
+                          expression: "editObj.number"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Rent" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter rent" },
+                        model: {
+                          value: _vm.editObj.rent,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "rent", $$v)
+                          },
+                          expression: "editObj.rent"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Capactiy" } },
+                    [
+                      _c("Input", {
+                        attrs: { placeholder: "Enter guests capacity" },
+                        model: {
+                          value: _vm.editObj.capacity,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "capacity", $$v)
+                          },
+                          expression: "editObj.capacity"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "FormItem",
+                    { attrs: { label: "Detailed information" } },
+                    [
+                      _c("Input", {
+                        attrs: {
+                          type: "textarea",
+                          autosize: { minRows: 2, maxRows: 5 },
+                          placeholder: "Enter information..."
+                        },
+                        model: {
+                          value: _vm.editObj.remarks,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editObj, "remarks", $$v)
+                          },
+                          expression: "editObj.remarks"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "primary",
+                    size: "large",
+                    long: "",
+                    loading: _vm.sending
+                  },
+                  on: { click: _vm.edit }
+                },
+                [
+                  !_vm.loading
+                    ? _c("span", [_vm._v("Update")])
+                    : _c("span", [_vm._v("Updating...")])
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { width: "360" },
+          model: {
+            value: _vm.deleteModal,
+            callback: function($$v) {
+              _vm.deleteModal = $$v
+            },
+            expression: "deleteModal"
+          }
+        },
+        [
+          _c(
+            "p",
+            {
+              staticStyle: { color: "#f60", "text-align": "center" },
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [
+              _c("Icon", { attrs: { type: "close" } }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" Delete")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticStyle: { "text-align": "center" } }, [
+            _vm._v("\n            Are you sure you want delete\n\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "Button",
+                {
+                  attrs: {
+                    type: "error",
+                    size: "large",
+                    long: "",
+                    loading: _vm.sending
+                  },
+                  on: { click: _vm.remove }
+                },
+                [
+                  !_vm.loading
+                    ? _c("span", [_vm._v("Delete")])
+                    : _c("span", [_vm._v("Deleting...")])
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-60536016", module.exports)
+  }
+}
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -19,7 +19,7 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->string('number');
             $table->string('rent')->nullable();
-            $table->string('guest')->nullable();
+            $table->string('capacity')->nullable();
             $table->text('remarks')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();

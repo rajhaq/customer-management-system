@@ -17,9 +17,8 @@ class CreateBookingsTable extends Migration
             $table->increments('id');
             $table->integer('admin_id');
             $table->integer('guest_id')->nullable();
-            $table->date('checkin');
-            $table->date('checkout');
-            $table->string('roomNumber')->nullable();
+            $table->date('date');
+            $table->string('room')->nullable();
             $table->date('bill')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Booking;
 class BookingController extends Controller
 {
     /**
@@ -15,6 +15,14 @@ class BookingController extends Controller
     {
         //
     }
+    public function bookingFinder($date)
+    {
+        $data=Booking::where('date', $date)
+        ->get();
+
+        return $data;
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -81,4 +89,5 @@ class BookingController extends Controller
     {
         //
     }
+
 }

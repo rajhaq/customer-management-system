@@ -4,6 +4,7 @@ import mainapp from './components/mainapp.vue'
 import home from './components/home.vue'
 import newguest from './components/guest/newguest.vue'
 import newbooking from './components/booking/newbooking.vue'
+import bookinglist from './components/booking/bookinglist.vue'
 import room from './components/room/room.vue'
 Vue.use(Router)
 export default new Router({
@@ -34,6 +35,11 @@ export default new Router({
 			path: '/room',
 			name: 'room',
 			component: room
+        },
+		{
+			path: '/bookinglist',
+			name: 'bookinglist',
+			component: bookinglist
 		},
 	]
 })

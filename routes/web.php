@@ -21,7 +21,9 @@ Auth::routes();
 Route::resource('/app/guest','GuestController');
 Route::resource('/app/room','RoomController');
 Route::resource('/app/booking','BookingController');
+Route::get('/app/bookingFinder/{date}', 'BookingController@bookingFinder');
 Route::get('/app/admin', 'HomeController@admin')->name('admin');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::any('{slug}', [
     'uses' => 'HomeController@index',

@@ -94379,45 +94379,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -94480,9 +94441,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     methods: {
         clicked: function clicked(i) {
-            console.log(i);
-            this.formValidate.room.push(this.dataRoom[i]);
-            this.roomCheck[i].status = 2;
+            console.log(this.dataRoom[i].status);
+            // if(this.dataRoom[i].status==2)
+            // {
+            // this.dataRoom[i].status=1
+            // this.formValidate.room.splice(i,1)
+            // }
+            if (this.dataRoom[i].status == 1) {
+                this.formValidate.room.push(this.dataRoom[i]);
+                this.dataRoom[i].status = 2;
+            }
         },
         changeBooking: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(key) {
@@ -94492,18 +94460,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                this.bookingList.splice(0, this.bookingList.length);
-                                this.day = false;
-                                this.night = false;
+                                if (!this.date) {
+                                    _context.next = 60;
+                                    break;
+                                }
+
                                 this.ls();
-                                _context.prev = 4;
-                                _context.next = 7;
+                                _context.prev = 2;
+                                _context.next = 5;
                                 return axios({
                                     method: 'get',
                                     url: '/app/bookingFinder/' + key
                                 });
 
-                            case 7:
+                            case 5:
                                 _ref2 = _context.sent;
                                 data = _ref2.data;
 
@@ -94511,119 +94481,123 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _iteratorNormalCompletion = true;
                                 _didIteratorError = false;
                                 _iteratorError = undefined;
-                                _context.prev = 13;
+                                _context.prev = 11;
                                 _iterator = this.dataRoom[Symbol.iterator]();
 
-                            case 15:
+                            case 13:
                                 if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                                    _context.next = 39;
+                                    _context.next = 38;
                                     break;
                                 }
 
                                 d = _step.value;
+
+
+                                d.status = 1;
                                 _iteratorNormalCompletion2 = true;
                                 _didIteratorError2 = false;
                                 _iteratorError2 = undefined;
-                                _context.prev = 20;
-
+                                _context.prev = 19;
                                 for (_iterator2 = data[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                                     f = _step2.value;
 
-                                    if (f.room == d.room) d.status = 0;
+                                    if (f.room == d.number) {
+                                        d.status = 0;
+                                    }
                                 }
 
-                                _context.next = 28;
+                                _context.next = 27;
                                 break;
 
-                            case 24:
-                                _context.prev = 24;
-                                _context.t0 = _context['catch'](20);
+                            case 23:
+                                _context.prev = 23;
+                                _context.t0 = _context['catch'](19);
                                 _didIteratorError2 = true;
                                 _iteratorError2 = _context.t0;
 
-                            case 28:
+                            case 27:
+                                _context.prev = 27;
                                 _context.prev = 28;
-                                _context.prev = 29;
 
                                 if (!_iteratorNormalCompletion2 && _iterator2.return) {
                                     _iterator2.return();
                                 }
 
-                            case 31:
-                                _context.prev = 31;
+                            case 30:
+                                _context.prev = 30;
 
                                 if (!_didIteratorError2) {
-                                    _context.next = 34;
+                                    _context.next = 33;
                                     break;
                                 }
 
                                 throw _iteratorError2;
 
+                            case 33:
+                                return _context.finish(30);
+
                             case 34:
-                                return _context.finish(31);
+                                return _context.finish(27);
 
                             case 35:
-                                return _context.finish(28);
-
-                            case 36:
                                 _iteratorNormalCompletion = true;
-                                _context.next = 15;
+                                _context.next = 13;
                                 break;
 
-                            case 39:
-                                _context.next = 45;
+                            case 38:
+                                _context.next = 44;
                                 break;
 
-                            case 41:
-                                _context.prev = 41;
-                                _context.t1 = _context['catch'](13);
+                            case 40:
+                                _context.prev = 40;
+                                _context.t1 = _context['catch'](11);
                                 _didIteratorError = true;
                                 _iteratorError = _context.t1;
 
-                            case 45:
+                            case 44:
+                                _context.prev = 44;
                                 _context.prev = 45;
-                                _context.prev = 46;
 
                                 if (!_iteratorNormalCompletion && _iterator.return) {
                                     _iterator.return();
                                 }
 
-                            case 48:
-                                _context.prev = 48;
+                            case 47:
+                                _context.prev = 47;
 
                                 if (!_didIteratorError) {
-                                    _context.next = 51;
+                                    _context.next = 50;
                                     break;
                                 }
 
                                 throw _iteratorError;
 
+                            case 50:
+                                return _context.finish(47);
+
                             case 51:
-                                return _context.finish(48);
+                                return _context.finish(44);
 
                             case 52:
-                                return _context.finish(45);
-
-                            case 53:
 
                                 this.bookingList = data;
                                 this.lf();
-                                _context.next = 61;
+                                _context.next = 60;
                                 break;
 
-                            case 57:
-                                _context.prev = 57;
-                                _context.t2 = _context['catch'](4);
+                            case 56:
+                                _context.prev = 56;
+                                _context.t2 = _context['catch'](2);
 
                                 this.e('Oops!', 'Something went wrong, please try again!');
                                 this.le();
 
-                            case 61:
+                            case 60:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[4, 57], [13, 41, 45, 53], [20, 24, 28, 36], [29,, 31, 35], [46,, 48, 52]]);
+                }, _callee, this, [[2, 56], [11, 40, 44, 52], [19, 23, 27, 35], [28,, 30, 34], [45,, 47, 51]]);
             }));
 
             function changeBooking(_x) {
@@ -94649,7 +94623,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     created: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-            var _ref4, data, i, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, d, _ref5, _data;
+            var _ref4, data, _ref5, _data;
 
             return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                 while (1) {
@@ -94668,93 +94642,48 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             data = _ref4.data;
 
                             this.dataRoom = data;
-                            i = 0;
-                            _iteratorNormalCompletion3 = true;
-                            _didIteratorError3 = false;
-                            _iteratorError3 = undefined;
-                            _context2.prev = 11;
 
-                            for (_iterator3 = data[Symbol.iterator](); !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                                d = _step3.value;
-
-                                this.dataRoom[i].status = 1;
-                            }
-
-                            _context2.next = 19;
+                            _context2.next = 13;
                             break;
 
-                        case 15:
-                            _context2.prev = 15;
-                            _context2.t0 = _context2['catch'](11);
-                            _didIteratorError3 = true;
-                            _iteratorError3 = _context2.t0;
-
-                        case 19:
-                            _context2.prev = 19;
-                            _context2.prev = 20;
-
-                            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                                _iterator3.return();
-                            }
-
-                        case 22:
-                            _context2.prev = 22;
-
-                            if (!_didIteratorError3) {
-                                _context2.next = 25;
-                                break;
-                            }
-
-                            throw _iteratorError3;
-
-                        case 25:
-                            return _context2.finish(22);
-
-                        case 26:
-                            return _context2.finish(19);
-
-                        case 27:
-                            _context2.next = 33;
-                            break;
-
-                        case 29:
-                            _context2.prev = 29;
-                            _context2.t1 = _context2['catch'](1);
+                        case 9:
+                            _context2.prev = 9;
+                            _context2.t0 = _context2['catch'](1);
 
                             this.e('Oops!', 'Something went wrong, please try again!');
                             this.le();
 
-                        case 33:
-                            _context2.prev = 33;
-                            _context2.next = 36;
+                        case 13:
+                            _context2.prev = 13;
+                            _context2.next = 16;
                             return axios({
                                 method: 'get',
                                 url: '/app/guest'
                             });
 
-                        case 36:
+                        case 16:
                             _ref5 = _context2.sent;
                             _data = _ref5.data;
 
                             this.dataGuest = _data;
                             this.lf();
 
-                            _context2.next = 46;
+                            _context2.next = 26;
                             break;
 
-                        case 42:
-                            _context2.prev = 42;
-                            _context2.t2 = _context2['catch'](33);
+                        case 22:
+                            _context2.prev = 22;
+                            _context2.t1 = _context2['catch'](13);
 
                             this.e('Oops!', 'Something went wrong, please try again!');
                             this.le();
 
-                        case 46:
+                        case 26:
                         case 'end':
                             return _context2.stop();
                     }
                 }
-            }, _callee2, this, [[1, 29], [11, 15, 19, 27], [20,, 22, 26], [33, 42]]);
+            }, _callee2, this, [[1, 9], [13, 22]]);
         }));
 
         function created() {
@@ -94802,52 +94731,26 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "Row",
-        { attrs: { gutter: 16 } },
-        [
-          _vm._v(" >\n\n        "),
-          _vm._l(_vm.dataRoom, function(data, i) {
-            return _c("Col", { key: i, attrs: { span: "4" } }, [
-              _c(
-                "span",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.clicked(i)
+      _vm.date
+        ? _c(
+            "Row",
+            { attrs: { gutter: 16 } },
+            _vm._l(_vm.dataRoom, function(data, i) {
+              return _c("Col", { key: i, attrs: { span: "4" } }, [
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.clicked(i)
+                      }
                     }
-                  }
-                },
-                [
-                  _vm.dataRoom[i].status == 1
-                    ? _c(
-                        "Alert",
-                        { attrs: { type: "info", "show-icon": "" } },
-                        [
-                          _vm._v(
-                            "\n                #" +
-                              _vm._s(data.number) +
-                              " - " +
-                              _vm._s(data.name) +
-                              "\n\n                "
-                          ),
-                          _c("p", { attrs: { slot: "desc" }, slot: "desc" }, [
-                            _vm._v(" Number Capacity: " + _vm._s(data.capacity))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { attrs: { slot: "desc" }, slot: "desc" }, [
-                            _vm._v(" Rent: " + _vm._s(data.rent))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { attrs: { slot: "desc" }, slot: "desc" }, [
-                            _vm._v(" Info: " + _vm._s(data.remarks))
-                          ])
-                        ]
-                      )
-                    : _vm.dataRoom[i].status == 2
+                  },
+                  [
+                    _vm.dataRoom[i].status == 1
                       ? _c(
                           "Alert",
-                          { attrs: { type: "success", "show-icon": "" } },
+                          { attrs: { type: "info", "show-icon": "" } },
                           [
                             _vm._v(
                               "\n                #" +
@@ -94871,10 +94774,10 @@ var render = function() {
                             ])
                           ]
                         )
-                      : _vm.dataRoom[i].status == 0
+                      : _vm.dataRoom[i].status == 2
                         ? _c(
                             "Alert",
-                            { attrs: { type: "error", "show-icon": "" } },
+                            { attrs: { type: "success", "show-icon": "" } },
                             [
                               _vm._v(
                                 "\n                #" +
@@ -94906,497 +94809,319 @@ var render = function() {
                               )
                             ]
                           )
-                        : _vm._e()
-                ],
-                1
-              )
-            ])
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _vm.date
-        ? _c(
-            "Col",
-            { attrs: { span: "10", offset: "1" } },
-            [
-              _vm.day
-                ? _c(
-                    "Card",
-                    { staticClass: "center" },
-                    [
-                      _c("Alert", { attrs: { type: "warning" } }, [
-                        _vm._v("Day Shift\n                    "),
-                        _c("span", { attrs: { slot: "desc" }, slot: "desc" })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        [
-                          _c("Icon", {
-                            attrs: { type: "ios-checkmark-circle" }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Already Booked ")]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        [
-                          _c("Button", { attrs: { type: "primary" } }, [
-                            _vm._v("View Information")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _c(
-                    "Card",
-                    { staticClass: "center" },
-                    [
-                      _c("Alert", { attrs: { type: "warning" } }, [
-                        _vm._v("Day Shift\n            "),
-                        _c("span", { attrs: { slot: "desc" }, slot: "desc" })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "Form",
-                        {
-                          ref: "formValidate",
-                          attrs: {
-                            model: _vm.formValidate,
-                            rules: _vm.ruleValidate,
-                            "label-position": "top"
-                          }
-                        },
-                        [
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Name", prop: "name" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter name" },
-                                model: {
-                                  value: _vm.formValidate.name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "name", $$v)
-                                  },
-                                  expression: "formValidate.name"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Number", prop: "number" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter phone number" },
-                                model: {
-                                  value: _vm.formValidate.number,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "number", $$v)
-                                  },
-                                  expression: "formValidate.number"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "E-mail" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter e-mail" },
-                                model: {
-                                  value: _vm.formValidate.mail,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "mail", $$v)
-                                  },
-                                  expression: "formValidate.mail"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Hall", prop: "hall" } },
-                            [
-                              _c(
-                                "Select",
-                                {
-                                  attrs: { placeholder: "Select hall" },
-                                  model: {
-                                    value: _vm.formValidate.hall,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formValidate, "hall", $$v)
-                                    },
-                                    expression: "formValidate.hall"
-                                  }
-                                },
-                                [
-                                  _c("Option", { attrs: { value: "both" } }, [
-                                    _vm._v("Both")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("Option", { attrs: { value: "small" } }, [
-                                    _vm._v("Top (Small)")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("Option", { attrs: { value: "large" } }, [
-                                    _vm._v("Ground (Small)")
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Event Type" } },
-                            [
-                              _c(
-                                "Select",
-                                {
-                                  attrs: { placeholder: "Select type" },
-                                  model: {
-                                    value: _vm.formValidate.type,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formValidate, "type", $$v)
-                                    },
-                                    expression: "formValidate.type"
-                                  }
-                                },
-                                _vm._l(_vm.type, function(item) {
-                                  return _c(
-                                    "Option",
-                                    {
-                                      key: item.value,
-                                      attrs: { value: item.value }
-                                    },
-                                    [_vm._v(_vm._s(item.label))]
-                                  )
-                                })
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Address" } },
-                            [
-                              _c("Input", {
-                                attrs: {
-                                  type: "textarea",
-                                  autosize: { minRows: 2, maxRows: 5 },
-                                  placeholder: "Enter address..."
-                                },
-                                model: {
-                                  value: _vm.formValidate.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "address", $$v)
-                                  },
-                                  expression: "formValidate.address"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            [
-                              _c(
-                                "Button",
-                                {
-                                  attrs: { type: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.handleSubmit("formValidate")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Submit")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "Button",
-                                {
-                                  staticStyle: { "margin-left": "8px" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.handleReset("formValidate")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Reset")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-            ],
-            1
+                        : _vm.dataRoom[i].status == 0
+                          ? _c(
+                              "Alert",
+                              { attrs: { type: "error", "show-icon": "" } },
+                              [
+                                _vm._v(
+                                  "\n                #" +
+                                    _vm._s(data.number) +
+                                    " - " +
+                                    _vm._s(data.name) +
+                                    "\n\n                "
+                                ),
+                                _c(
+                                  "p",
+                                  { attrs: { slot: "desc" }, slot: "desc" },
+                                  [
+                                    _vm._v(
+                                      " Number Capacity: " +
+                                        _vm._s(data.capacity)
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { attrs: { slot: "desc" }, slot: "desc" },
+                                  [_vm._v(" Rent: " + _vm._s(data.rent))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { attrs: { slot: "desc" }, slot: "desc" },
+                                  [_vm._v(" Info: " + _vm._s(data.remarks))]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            })
           )
         : _vm._e(),
       _vm._v(" "),
       _vm.date
         ? _c(
             "Col",
-            { attrs: { span: "10", offset: "2" } },
+            { attrs: { span: "14", offset: "5" } },
             [
-              _vm.night
-                ? _c(
-                    "Card",
-                    { staticClass: "center" },
+              _c(
+                "Card",
+                [
+                  _c("Alert", { staticClass: "center" }, [
+                    _vm._v("New Booking\n            "),
+                    _c("span", { attrs: { slot: "desc" }, slot: "desc" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "Tabs",
+                    { attrs: { value: "name1" } },
                     [
-                      _c("Alert", [
-                        _vm._v("Night Shift\n                    "),
-                        _c("span", { attrs: { slot: "desc" }, slot: "desc" })
-                      ]),
-                      _vm._v(" "),
                       _c(
-                        "p",
-                        [
-                          _c("Icon", {
-                            attrs: { type: "ios-checkmark-circle" }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Already Booked ")]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        [
-                          _c("Button", { attrs: { type: "primary" } }, [
-                            _vm._v("View Information")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _c(
-                    "Card",
-                    { staticClass: "center" },
-                    [
-                      _c("Alert", [
-                        _vm._v("Night Shift\n            "),
-                        _c("span", { attrs: { slot: "desc" }, slot: "desc" })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "Form",
-                        {
-                          ref: "formValidate",
-                          attrs: {
-                            model: _vm.formValidate,
-                            rules: _vm.ruleValidate,
-                            "label-position": "top"
-                          }
-                        },
+                        "TabPane",
+                        { attrs: { label: "New Guest", name: "name1" } },
                         [
                           _c(
-                            "FormItem",
-                            { attrs: { label: "Name", prop: "name" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter name" },
-                                model: {
-                                  value: _vm.formValidate.name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "name", $$v)
-                                  },
-                                  expression: "formValidate.name"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Number", prop: "number" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter phone number" },
-                                model: {
-                                  value: _vm.formValidate.number,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "number", $$v)
-                                  },
-                                  expression: "formValidate.number"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "E-mail" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter e-mail" },
-                                model: {
-                                  value: _vm.formValidate.mail,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "mail", $$v)
-                                  },
-                                  expression: "formValidate.mail"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Hall", prop: "hall" } },
+                            "Form",
+                            {
+                              ref: "formValidate",
+                              attrs: {
+                                model: _vm.formValidate,
+                                rules: _vm.ruleValidate,
+                                "label-position": "top"
+                              }
+                            },
                             [
                               _c(
-                                "Select",
-                                {
-                                  attrs: { placeholder: "Select hall" },
-                                  model: {
-                                    value: _vm.formValidate.hall,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formValidate, "hall", $$v)
-                                    },
-                                    expression: "formValidate.hall"
-                                  }
-                                },
+                                "FormItem",
+                                { attrs: { label: "Name", prop: "name" } },
                                 [
-                                  _c("Option", { attrs: { value: "both" } }, [
-                                    _vm._v("Both")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("Option", { attrs: { value: "small" } }, [
-                                    _vm._v("Top (Small)")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("Option", { attrs: { value: "large" } }, [
-                                    _vm._v("Ground (Small)")
-                                  ])
+                                  _c("Input", {
+                                    attrs: { placeholder: "Enter name" },
+                                    model: {
+                                      value: _vm.formValidate.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "name", $$v)
+                                      },
+                                      expression: "formValidate.name"
+                                    }
+                                  })
                                 ],
                                 1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Event Type" } },
-                            [
-                              _c(
-                                "Select",
-                                {
-                                  attrs: { placeholder: "Select type" },
-                                  model: {
-                                    value: _vm.formValidate.type,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formValidate, "type", $$v)
-                                    },
-                                    expression: "formValidate.type"
-                                  }
-                                },
-                                _vm._l(_vm.type, function(item) {
-                                  return _c(
-                                    "Option",
-                                    {
-                                      key: item.value,
-                                      attrs: { value: item.value }
-                                    },
-                                    [_vm._v(_vm._s(item.label))]
-                                  )
-                                })
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Address" } },
-                            [
-                              _c("Input", {
-                                attrs: {
-                                  type: "textarea",
-                                  autosize: { minRows: 2, maxRows: 5 },
-                                  placeholder: "Enter address..."
-                                },
-                                model: {
-                                  value: _vm.formValidate.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "address", $$v)
-                                  },
-                                  expression: "formValidate.address"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            [
-                              _c(
-                                "Button",
-                                {
-                                  attrs: { type: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.handleSubmit("formValidate")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Submit")]
                               ),
                               _vm._v(" "),
                               _c(
-                                "Button",
-                                {
-                                  staticStyle: { "margin-left": "8px" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.handleReset("formValidate")
+                                "FormItem",
+                                { attrs: { label: "Phone", prop: "phone" } },
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      placeholder: "Enter contact number"
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.phone,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "phone", $$v)
+                                      },
+                                      expression: "formValidate.phone"
                                     }
-                                  }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "ID", prop: "nid" } },
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      placeholder:
+                                        "Enter NID/PASSPORT/DRIVING LICENSE"
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.nid,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "nid", $$v)
+                                      },
+                                      expression: "formValidate.nid"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "E-mail", prop: "mail" } },
+                                [
+                                  _c("Input", {
+                                    attrs: { placeholder: "Enter e-mail" },
+                                    model: {
+                                      value: _vm.formValidate.mail,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "mail", $$v)
+                                      },
+                                      expression: "formValidate.mail"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Birth date" } },
+                                [
+                                  _c("DatePicker", {
+                                    attrs: {
+                                      type: "date",
+                                      placeholder: "Select date"
+                                    },
+                                    on: { "on-change": _vm.dateConverter }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                {
+                                  attrs: { label: "Address", prop: "address" }
                                 },
-                                [_vm._v("Reset")]
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      type: "textarea",
+                                      autosize: { minRows: 2, maxRows: 5 },
+                                      placeholder: "Enter full address..."
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.address,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formValidate,
+                                          "address",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formValidate.address"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Gender", prop: "gender" } },
+                                [
+                                  _c(
+                                    "RadioGroup",
+                                    {
+                                      model: {
+                                        value: _vm.formValidate.gender,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.formValidate,
+                                            "gender",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "formValidate.gender"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "Radio",
+                                        { attrs: { label: "male" } },
+                                        [_vm._v("Male")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "Radio",
+                                        { attrs: { label: "female" } },
+                                        [_vm._v("Female")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Check In & Out" } },
+                                [
+                                  _c("DatePicker", {
+                                    attrs: {
+                                      type: "date",
+                                      placeholder: "Choose date range"
+                                    },
+                                    on: { "on-change": _vm.checkDates }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Room Numbers" } },
+                                [
+                                  _c("Input", {
+                                    attrs: { placeholder: "Enter numbers" },
+                                    model: {
+                                      value: _vm.formValidate.phone,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "phone", $$v)
+                                      },
+                                      expression: "formValidate.phone"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                [
+                                  _c(
+                                    "Button",
+                                    {
+                                      attrs: { type: "primary" },
+                                      on: { click: _vm.addGuest }
+                                    },
+                                    [_vm._v("Add")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "Button",
+                                    {
+                                      staticStyle: { "margin-left": "8px" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.handleReset("formValidate")
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Reset")]
+                                  )
+                                ],
+                                1
                               )
                             ],
                             1
                           )
                         ],
                         1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "TabPane",
+                        { attrs: { label: "Existing Guest", name: "name2" } },
+                        [_vm._v("On Process")]
                       )
                     ],
                     1
                   )
+                ],
+                1
+              )
             ],
             1
           )

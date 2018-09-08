@@ -28,7 +28,7 @@
                 <DatePicker v-model="date" type="date" placeholder="Select date" @on-change="changeBooking"></DatePicker>
             </Card>
         </Col>
-        <Row :gutter="16"  v-if="date">
+        <Row :gutter="20"  v-if="date">
 
             <Col span="4" v-for="(data,i) in dataRoom" :key="i"  >
             <span @click="clicked(i)">

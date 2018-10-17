@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Booking;
+use App\Guest;
+use Auth;
 class BookingController extends Controller
 {
     /**
@@ -42,7 +44,38 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $admin_id=Auth::user()->id;
+        $input=$request->all();
+        $guest=Guest::create([
+            'admin_id' => $admin_id,
+            'name' => $input['name'],
+            'mail' => $input['mail'],
+            'phone' => $input['phone'],
+            'nid' => $input['nid'],
+            'address' => $input['address'],
+            'gender' => $input['gender'],
+            'dob' => $input['dob'],
+        ]);
+        foreach ($input['room'] as $key => $value)
+        {
+            $booking=Booking::create(
+                [
+                    'admin_id' => $admin_id,
+                    'guest_id' => $guest->id,
+                    'room' => $value['id'],
+                    'bill' => $value['rent'],
+                    'remarks' => $input['remarks'],
+                    'date' => $input['date'],
+                ]
+            );
+
+        }
+
+        return response()->json([
+            'msg' => 'Inserted',
+            'status' => $guest
+            ],200);
+
     }
 
     /**

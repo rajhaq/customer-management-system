@@ -94375,10 +94375,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -94440,53 +94436,103 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
 
     methods: {
-        clicked: function clicked(i) {
-            console.log(this.dataRoom[i].status);
-            // if(this.dataRoom[i].status==2)
-            // {
-            // this.dataRoom[i].status=1
-            // this.formValidate.room.splice(i,1)
-            // }
-            if (this.dataRoom[i].status == 1) {
-                this.formValidate.room.push(this.dataRoom[i]);
-                this.dataRoom[i].status = 2;
-            }
+        dateConverter: function dateConverter(key) {
+            this.formValidate.dob = key;
         },
-        changeBooking: function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(key) {
-                var _ref2, data, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, d, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, f;
+        addWithout: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var _ref2, data;
 
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
+                                this.loading = true;
+                                _context.prev = 1;
+                                _context.next = 4;
+                                return axios({
+                                    method: 'post',
+                                    url: '/app/booking',
+                                    data: this.formValidate
+                                });
+
+                            case 4:
+                                _ref2 = _context.sent;
+                                data = _ref2.data;
+
+                                this.s('Great!', 'Guest has been added successfully!');
+                                this.loading = false;
+                                _context.next = 14;
+                                break;
+
+                            case 10:
+                                _context.prev = 10;
+                                _context.t0 = _context['catch'](1);
+
+                                this.loading = false;
+                                this.e('Oops!', 'Something went wrong, please try again!');
+
+                            case 14:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this, [[1, 10]]);
+            }));
+
+            function addWithout() {
+                return _ref.apply(this, arguments);
+            }
+
+            return addWithout;
+        }(),
+        clicked: function clicked(i) {
+            console.log(this.dataRoom[i].status);
+            if (this.dataRoom[i].status == 2) {
+                this.dataRoom[i].status = 1;
+                this.formValidate.room.splice(i, 1);
+            } else if (this.dataRoom[i].status == 1) {
+                this.formValidate.room[i] = this.dataRoom[i];
+                this.dataRoom[i].status = 2;
+            }
+        },
+        changeBooking: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(key) {
+                var _ref4, data, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, d, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, f;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                this.formValidate.date = key;
+
                                 if (!this.date) {
-                                    _context.next = 60;
+                                    _context2.next = 61;
                                     break;
                                 }
 
                                 this.ls();
-                                _context.prev = 2;
-                                _context.next = 5;
+                                _context2.prev = 3;
+                                _context2.next = 6;
                                 return axios({
                                     method: 'get',
                                     url: '/app/bookingFinder/' + key
                                 });
 
-                            case 5:
-                                _ref2 = _context.sent;
-                                data = _ref2.data;
+                            case 6:
+                                _ref4 = _context2.sent;
+                                data = _ref4.data;
 
                                 console.log(data);
                                 _iteratorNormalCompletion = true;
                                 _didIteratorError = false;
                                 _iteratorError = undefined;
-                                _context.prev = 11;
+                                _context2.prev = 12;
                                 _iterator = this.dataRoom[Symbol.iterator]();
 
-                            case 13:
+                            case 14:
                                 if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                                    _context.next = 38;
+                                    _context2.next = 39;
                                     break;
                                 }
 
@@ -94497,111 +94543,111 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 _iteratorNormalCompletion2 = true;
                                 _didIteratorError2 = false;
                                 _iteratorError2 = undefined;
-                                _context.prev = 19;
+                                _context2.prev = 20;
                                 for (_iterator2 = data[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                                     f = _step2.value;
 
-                                    if (f.room == d.number) {
+                                    if (f.room == d.id) {
                                         d.status = 0;
                                     }
                                 }
 
-                                _context.next = 27;
+                                _context2.next = 28;
                                 break;
 
-                            case 23:
-                                _context.prev = 23;
-                                _context.t0 = _context['catch'](19);
+                            case 24:
+                                _context2.prev = 24;
+                                _context2.t0 = _context2['catch'](20);
                                 _didIteratorError2 = true;
-                                _iteratorError2 = _context.t0;
+                                _iteratorError2 = _context2.t0;
 
-                            case 27:
-                                _context.prev = 27;
-                                _context.prev = 28;
+                            case 28:
+                                _context2.prev = 28;
+                                _context2.prev = 29;
 
                                 if (!_iteratorNormalCompletion2 && _iterator2.return) {
                                     _iterator2.return();
                                 }
 
-                            case 30:
-                                _context.prev = 30;
+                            case 31:
+                                _context2.prev = 31;
 
                                 if (!_didIteratorError2) {
-                                    _context.next = 33;
+                                    _context2.next = 34;
                                     break;
                                 }
 
                                 throw _iteratorError2;
 
-                            case 33:
-                                return _context.finish(30);
-
                             case 34:
-                                return _context.finish(27);
+                                return _context2.finish(31);
 
                             case 35:
+                                return _context2.finish(28);
+
+                            case 36:
                                 _iteratorNormalCompletion = true;
-                                _context.next = 13;
+                                _context2.next = 14;
                                 break;
 
-                            case 38:
-                                _context.next = 44;
+                            case 39:
+                                _context2.next = 45;
                                 break;
 
-                            case 40:
-                                _context.prev = 40;
-                                _context.t1 = _context['catch'](11);
+                            case 41:
+                                _context2.prev = 41;
+                                _context2.t1 = _context2['catch'](12);
                                 _didIteratorError = true;
-                                _iteratorError = _context.t1;
+                                _iteratorError = _context2.t1;
 
-                            case 44:
-                                _context.prev = 44;
-                                _context.prev = 45;
+                            case 45:
+                                _context2.prev = 45;
+                                _context2.prev = 46;
 
                                 if (!_iteratorNormalCompletion && _iterator.return) {
                                     _iterator.return();
                                 }
 
-                            case 47:
-                                _context.prev = 47;
+                            case 48:
+                                _context2.prev = 48;
 
                                 if (!_didIteratorError) {
-                                    _context.next = 50;
+                                    _context2.next = 51;
                                     break;
                                 }
 
                                 throw _iteratorError;
 
-                            case 50:
-                                return _context.finish(47);
-
                             case 51:
-                                return _context.finish(44);
+                                return _context2.finish(48);
 
                             case 52:
+                                return _context2.finish(45);
+
+                            case 53:
 
                                 this.bookingList = data;
                                 this.lf();
-                                _context.next = 60;
+                                _context2.next = 61;
                                 break;
 
-                            case 56:
-                                _context.prev = 56;
-                                _context.t2 = _context['catch'](2);
+                            case 57:
+                                _context2.prev = 57;
+                                _context2.t2 = _context2['catch'](3);
 
                                 this.e('Oops!', 'Something went wrong, please try again!');
                                 this.le();
 
-                            case 60:
+                            case 61:
                             case 'end':
-                                return _context.stop();
+                                return _context2.stop();
                         }
                     }
-                }, _callee, this, [[2, 56], [11, 40, 44, 52], [19, 23, 27, 35], [28,, 30, 34], [45,, 47, 51]]);
+                }, _callee2, this, [[3, 57], [12, 41, 45, 53], [20, 24, 28, 36], [29,, 31, 35], [46,, 48, 52]]);
             }));
 
             function changeBooking(_x) {
-                return _ref.apply(this, arguments);
+                return _ref3.apply(this, arguments);
             }
 
             return changeBooking;
@@ -94612,6 +94658,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.$refs[name].validate(function (valid) {
                 if (valid) {
                     _this.$Message.success('Success!', 'Data Added');
+                    _this.addWithout();
                 } else {
                     _this.$Message.error('Fail!');
                 }
@@ -94622,72 +94669,72 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         }
     },
     created: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-            var _ref4, data, _ref5, _data;
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
+            var _ref6, data, _ref7, _data;
 
-            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                 while (1) {
-                    switch (_context2.prev = _context2.next) {
+                    switch (_context3.prev = _context3.next) {
                         case 0:
                             this.ls();
-                            _context2.prev = 1;
-                            _context2.next = 4;
+                            _context3.prev = 1;
+                            _context3.next = 4;
                             return axios({
                                 method: 'get',
                                 url: '/app/room'
                             });
 
                         case 4:
-                            _ref4 = _context2.sent;
-                            data = _ref4.data;
+                            _ref6 = _context3.sent;
+                            data = _ref6.data;
 
                             this.dataRoom = data;
 
-                            _context2.next = 13;
+                            _context3.next = 13;
                             break;
 
                         case 9:
-                            _context2.prev = 9;
-                            _context2.t0 = _context2['catch'](1);
+                            _context3.prev = 9;
+                            _context3.t0 = _context3['catch'](1);
 
                             this.e('Oops!', 'Something went wrong, please try again!');
                             this.le();
 
                         case 13:
-                            _context2.prev = 13;
-                            _context2.next = 16;
+                            _context3.prev = 13;
+                            _context3.next = 16;
                             return axios({
                                 method: 'get',
                                 url: '/app/guest'
                             });
 
                         case 16:
-                            _ref5 = _context2.sent;
-                            _data = _ref5.data;
+                            _ref7 = _context3.sent;
+                            _data = _ref7.data;
 
                             this.dataGuest = _data;
                             this.lf();
 
-                            _context2.next = 26;
+                            _context3.next = 26;
                             break;
 
                         case 22:
-                            _context2.prev = 22;
-                            _context2.t1 = _context2['catch'](13);
+                            _context3.prev = 22;
+                            _context3.t1 = _context3['catch'](13);
 
                             this.e('Oops!', 'Something went wrong, please try again!');
                             this.le();
 
                         case 26:
                         case 'end':
-                            return _context2.stop();
+                            return _context3.stop();
                     }
                 }
-            }, _callee2, this, [[1, 9], [13, 22]]);
+            }, _callee3, this, [[1, 9], [13, 22]]);
         }));
 
         function created() {
-            return _ref3.apply(this, arguments);
+            return _ref5.apply(this, arguments);
         }
 
         return created;
@@ -94734,7 +94781,7 @@ var render = function() {
       _vm.date
         ? _c(
             "Row",
-            { attrs: { gutter: 16 } },
+            { attrs: { gutter: 20 } },
             _vm._l(_vm.dataRoom, function(data, i) {
               return _c("Col", { key: i, attrs: { span: "4" } }, [
                 _c(
@@ -95046,31 +95093,26 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "FormItem",
-                                { attrs: { label: "Check In & Out" } },
-                                [
-                                  _c("DatePicker", {
-                                    attrs: {
-                                      type: "date",
-                                      placeholder: "Choose date range"
-                                    },
-                                    on: { "on-change": _vm.checkDates }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "FormItem",
-                                { attrs: { label: "Room Numbers" } },
+                                {
+                                  attrs: { label: "Remarks", prop: "remarks" }
+                                },
                                 [
                                   _c("Input", {
-                                    attrs: { placeholder: "Enter numbers" },
+                                    attrs: {
+                                      type: "textarea",
+                                      autosize: { minRows: 2, maxRows: 5 },
+                                      placeholder: ""
+                                    },
                                     model: {
-                                      value: _vm.formValidate.phone,
+                                      value: _vm.formValidate.remarks,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.formValidate, "phone", $$v)
+                                        _vm.$set(
+                                          _vm.formValidate,
+                                          "remarks",
+                                          $$v
+                                        )
                                       },
-                                      expression: "formValidate.phone"
+                                      expression: "formValidate.remarks"
                                     }
                                   })
                                 ],
@@ -95084,7 +95126,11 @@ var render = function() {
                                     "Button",
                                     {
                                       attrs: { type: "primary" },
-                                      on: { click: _vm.addGuest }
+                                      on: {
+                                        click: function($event) {
+                                          _vm.handleSubmit("formValidate")
+                                        }
+                                      }
                                     },
                                     [_vm._v("Add")]
                                   ),

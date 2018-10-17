@@ -80,7 +80,7 @@
                             <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
                         </FormItem>
                         <FormItem label="Birth date">
-                                <DatePicker type="date" placeholder="Select date"  @on-change="dateConverter" ></DatePicker>
+                                <DatePicker type="date" placeholder="Select date" @on-change="dateConverter" ></DatePicker>
                         </FormItem>
                         <FormItem label="Address" prop="address">
                             <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
@@ -91,15 +91,11 @@
                                 <Radio label="female">Female</Radio>
                             </RadioGroup>
                         </FormItem>
-                        <FormItem label="Check In & Out">
-                                <DatePicker type="date" placeholder="Choose date range"  @on-change="checkDates" ></DatePicker>
-                                <!--<DatePicker type="date" placeholder="Check Out"  @on-change="dateConverter" ></DatePicker>-->
-                        </FormItem>
-                        <FormItem label="Room Numbers">
-                            <Input v-model="formValidate.phone" placeholder="Enter numbers"></Input>
+                        <FormItem label="Remarks" prop="remarks">
+                            <Input v-model="formValidate.remarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""></Input>
                         </FormItem>
                         <FormItem>
-                            <Button type="primary" @click="addGuest">Add</Button>
+                            <Button type="primary" @click="handleSubmit('formValidate')">Add</Button>
                             <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
                         </FormItem>
                     </Form>
@@ -188,23 +184,45 @@
             }
         },
         methods: {
+            dateConverter(key)
+            {
+                this.formValidate.dob=key
+
+            },
+
+            async addWithout(){
+                this.loading=true
+                try{
+                    let {data} =await  axios({
+                        method: 'post',
+                        url:'/app/booking',
+                        data: this.formValidate
+                    })
+                    this.s('Great!','Guest has been added successfully!')
+                    this.loading=false
+                }catch(e){
+                    this.loading=false
+                    this.e('Oops!','Something went wrong, please try again!')
+                }
+            },
             clicked(i)
             {
                 console.log(this.dataRoom[i].status)
-                // if(this.dataRoom[i].status==2)
-                // {
-                // this.dataRoom[i].status=1
-                // this.formValidate.room.splice(i,1)
-                // }
-                if(this.dataRoom[i].status==1)
+                if(this.dataRoom[i].status==2)
                 {
-                this.formValidate.room.push(this.dataRoom[i])
+                this.dataRoom[i].status=1
+                this.formValidate.room.splice(i,1)
+                }
+                else if(this.dataRoom[i].status==1)
+                {
+                this.formValidate.room[i]=this.dataRoom[i]
                 this.dataRoom[i].status=2
                 }
 
 
             },
             async changeBooking (key) {
+                this.formValidate.date=key
                 if(this.date)
                 {
                 this.ls();
@@ -220,7 +238,7 @@
                         d.status=1
                     for(let f of data)
                     {
-                        if(f.room==d.number)
+                        if(f.room==d.id)
                         {
                         d.status=0
                         }
@@ -242,6 +260,7 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$Message.success('Success!', 'Data Added');
+                        this.addWithout();
                     } else {
                         this.$Message.error('Fail!');
                     }

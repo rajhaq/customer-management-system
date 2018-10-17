@@ -19,7 +19,7 @@ class CreateBookingsTable extends Migration
             $table->integer('guest_id')->nullable();
             $table->date('date');
             $table->string('room')->nullable();
-            $table->date('bill')->nullable();
+            $table->string('bill')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

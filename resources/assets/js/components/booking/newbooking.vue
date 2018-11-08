@@ -100,7 +100,43 @@
                         </FormItem>
                     </Form>
                     </TabPane>
-                    <TabPane label="Existing Guest" name="name2">On Process</TabPane>
+                    <TabPane label="Existing Guest" name="name2">On Process
+                        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
+                        <FormItem label="Group">
+                            <Select v-model="formValidate.number" placeholder="Enter Number" :remote-method="setGuest"  filterable clearable>
+                                <Option v-for="(group,i) in dataGuest" :value="i" :key="i">{{group.phone}}</Option>
+                            </Select>
+                        </FormItem>
+                        <FormItem label="Name" prop="name">
+                            <Input v-model="formValidate.name" placeholder="Enter name"></Input>
+                        </FormItem>
+                        <FormItem label="ID"  prop="nid">
+                            <Input v-model="formValidate.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
+                        </FormItem>
+                        <FormItem label="E-mail" prop="mail">
+                            <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
+                        </FormItem>
+                        <FormItem label="Birth date">
+                                <DatePicker type="date" placeholder="Select date" @on-change="dateConverter" ></DatePicker>
+                        </FormItem>
+                        <FormItem label="Address" prop="address">
+                            <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
+                        </FormItem>
+                        <FormItem label="Gender" prop="gender">
+                            <RadioGroup v-model="formValidate.gender">
+                                <Radio label="male" >Male</Radio>
+                                <Radio label="female">Female</Radio>
+                            </RadioGroup>
+                        </FormItem>
+                        <FormItem label="Remarks" prop="remarks">
+                            <Input v-model="formValidate.remarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder=""></Input>
+                        </FormItem>
+                        <FormItem>
+                            <Button type="primary" @click="handleSubmit('formValidate')">Add</Button>
+                            <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+                        </FormItem>
+                    </Form>
+                    </TabPane>
                 </Tabs>
 
             </Card>
@@ -184,6 +220,13 @@
             }
         },
         methods: {
+            setGuest(k)
+            {
+                console.log(k)
+                this.formValidate.name=this.dataGuest[k].name
+                this.formValidate.number=this.dataGuest[k].phone
+
+            },
             dateConverter(key)
             {
                 this.formValidate.dob=key

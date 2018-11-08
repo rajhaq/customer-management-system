@@ -57,7 +57,7 @@
 </style>
 <template>
     <Row>
-        <Col span="16">
+        <Col span="24">
             <Card class="center">
                 <Alert type="warning" >Booking List
                     <span slot="desc"></span>
@@ -68,60 +68,7 @@
                 </p>
             </Card>
         </Col>
-        <Col span="1">
-            <p> &nbsp;</p>
-        </Col>
 
-        <Col span="7">
-            <Card>
-                <Alert  class="center">New Booking
-                <span slot="desc"></span>
-                </Alert >
-                <Tabs value="name1" >
-                    <TabPane label="New Guest" name="name1">
-                    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-position="top">
-                        <FormItem label="Name" prop="name">
-                            <Input v-model="formValidate.name" placeholder="Enter name"></Input>
-                        </FormItem>
-                        <FormItem label="Phone" prop="phone">
-                            <Input v-model="formValidate.phone" placeholder="Enter contact number"></Input>
-                        </FormItem>
-                        <FormItem label="ID"  prop="nid">
-                            <Input v-model="formValidate.nid" placeholder="Enter NID/PASSPORT/DRIVING LICENSE"></Input>
-                        </FormItem>
-                        <FormItem label="E-mail" prop="mail">
-                            <Input v-model="formValidate.mail" placeholder="Enter e-mail"></Input>
-                        </FormItem>
-                        <FormItem label="Birth date">
-                                <DatePicker type="date" placeholder="Select date"  @on-change="dateConverter" ></DatePicker>
-                        </FormItem>
-                        <FormItem label="Address" prop="address">
-                            <Input v-model="formValidate.address" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter full address..."></Input>
-                        </FormItem>
-                        <FormItem label="Gender" prop="gender">
-                            <RadioGroup v-model="formValidate.gender">
-                                <Radio label="male" >Male</Radio>
-                                <Radio label="female">Female</Radio>
-                            </RadioGroup>
-                        </FormItem>
-                        <FormItem label="Check In & Out">
-                                <DatePicker type="daterange" placeholder="Choose date range"  @on-change="checkDates" ></DatePicker>
-                                <!--<DatePicker type="date" placeholder="Check Out"  @on-change="dateConverter" ></DatePicker>-->
-                        </FormItem>
-                        <FormItem label="Room Numbers">
-                            <Input v-model="formValidate.phone" placeholder="Enter numbers"></Input>
-                        </FormItem>
-                        <FormItem>
-                            <Button type="primary" @click="addGuest">Add</Button>
-                            <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
-                        </FormItem>
-                    </Form>
-                    </TabPane>
-                    <TabPane label="Existing Guest" name="name2">On Process</TabPane>
-                </Tabs>
-
-            </Card>
-        </Col>
         <!-- modal -->
         <Modal v-model="viewModal" width="600">
             <p slot="header" style="color:#369;text-align:center">

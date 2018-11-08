@@ -94375,6 +94375,42 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -94436,6 +94472,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
 
     methods: {
+        setGuest: function setGuest(k) {
+            console.log(k);
+            this.formValidate.name = this.dataGuest[k].name;
+            this.formValidate.number = this.dataGuest[k].phone;
+        },
         dateConverter: function dateConverter(key) {
             this.formValidate.dob = key;
         },
@@ -95160,7 +95201,258 @@ var render = function() {
                       _c(
                         "TabPane",
                         { attrs: { label: "Existing Guest", name: "name2" } },
-                        [_vm._v("On Process")]
+                        [
+                          _vm._v("On Process\n                    "),
+                          _c(
+                            "Form",
+                            {
+                              ref: "formValidate",
+                              attrs: {
+                                model: _vm.formValidate,
+                                rules: _vm.ruleValidate,
+                                "label-position": "top"
+                              }
+                            },
+                            [
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Group" } },
+                                [
+                                  _c(
+                                    "Select",
+                                    {
+                                      attrs: {
+                                        placeholder: "Enter Number",
+                                        "remote-method": _vm.setGuest,
+                                        filterable: "",
+                                        clearable: ""
+                                      },
+                                      model: {
+                                        value: _vm.formValidate.number,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.formValidate,
+                                            "number",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "formValidate.number"
+                                      }
+                                    },
+                                    _vm._l(_vm.dataGuest, function(group, i) {
+                                      return _c(
+                                        "Option",
+                                        { key: i, attrs: { value: i } },
+                                        [_vm._v(_vm._s(group.phone))]
+                                      )
+                                    })
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Name", prop: "name" } },
+                                [
+                                  _c("Input", {
+                                    attrs: { placeholder: "Enter name" },
+                                    model: {
+                                      value: _vm.formValidate.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "name", $$v)
+                                      },
+                                      expression: "formValidate.name"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "ID", prop: "nid" } },
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      placeholder:
+                                        "Enter NID/PASSPORT/DRIVING LICENSE"
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.nid,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "nid", $$v)
+                                      },
+                                      expression: "formValidate.nid"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "E-mail", prop: "mail" } },
+                                [
+                                  _c("Input", {
+                                    attrs: { placeholder: "Enter e-mail" },
+                                    model: {
+                                      value: _vm.formValidate.mail,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formValidate, "mail", $$v)
+                                      },
+                                      expression: "formValidate.mail"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Birth date" } },
+                                [
+                                  _c("DatePicker", {
+                                    attrs: {
+                                      type: "date",
+                                      placeholder: "Select date"
+                                    },
+                                    on: { "on-change": _vm.dateConverter }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                {
+                                  attrs: { label: "Address", prop: "address" }
+                                },
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      type: "textarea",
+                                      autosize: { minRows: 2, maxRows: 5 },
+                                      placeholder: "Enter full address..."
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.address,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formValidate,
+                                          "address",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formValidate.address"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                { attrs: { label: "Gender", prop: "gender" } },
+                                [
+                                  _c(
+                                    "RadioGroup",
+                                    {
+                                      model: {
+                                        value: _vm.formValidate.gender,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.formValidate,
+                                            "gender",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "formValidate.gender"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "Radio",
+                                        { attrs: { label: "male" } },
+                                        [_vm._v("Male")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "Radio",
+                                        { attrs: { label: "female" } },
+                                        [_vm._v("Female")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                {
+                                  attrs: { label: "Remarks", prop: "remarks" }
+                                },
+                                [
+                                  _c("Input", {
+                                    attrs: {
+                                      type: "textarea",
+                                      autosize: { minRows: 2, maxRows: 5 },
+                                      placeholder: ""
+                                    },
+                                    model: {
+                                      value: _vm.formValidate.remarks,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formValidate,
+                                          "remarks",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "formValidate.remarks"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "FormItem",
+                                [
+                                  _c(
+                                    "Button",
+                                    {
+                                      attrs: { type: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.handleSubmit("formValidate")
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Add")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "Button",
+                                    {
+                                      staticStyle: { "margin-left": "8px" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.handleReset("formValidate")
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Reset")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
                       )
                     ],
                     1
@@ -95289,59 +95581,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -95918,7 +96157,7 @@ var render = function() {
     [
       _c(
         "Col",
-        { attrs: { span: "16" } },
+        { attrs: { span: "24" } },
         [
           _c(
             "Card",
@@ -95935,263 +96174,6 @@ var render = function() {
                   _c("Table", {
                     attrs: { columns: _vm.columns1, data: _vm.dataGuest }
                   })
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("Col", { attrs: { span: "1" } }, [_c("p", [_vm._v("  ")])]),
-      _vm._v(" "),
-      _c(
-        "Col",
-        { attrs: { span: "7" } },
-        [
-          _c(
-            "Card",
-            [
-              _c("Alert", { staticClass: "center" }, [
-                _vm._v("New Booking\n            "),
-                _c("span", { attrs: { slot: "desc" }, slot: "desc" })
-              ]),
-              _vm._v(" "),
-              _c(
-                "Tabs",
-                { attrs: { value: "name1" } },
-                [
-                  _c(
-                    "TabPane",
-                    { attrs: { label: "New Guest", name: "name1" } },
-                    [
-                      _c(
-                        "Form",
-                        {
-                          ref: "formValidate",
-                          attrs: {
-                            model: _vm.formValidate,
-                            rules: _vm.ruleValidate,
-                            "label-position": "top"
-                          }
-                        },
-                        [
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Name", prop: "name" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter name" },
-                                model: {
-                                  value: _vm.formValidate.name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "name", $$v)
-                                  },
-                                  expression: "formValidate.name"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Phone", prop: "phone" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter contact number" },
-                                model: {
-                                  value: _vm.formValidate.phone,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "phone", $$v)
-                                  },
-                                  expression: "formValidate.phone"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "ID", prop: "nid" } },
-                            [
-                              _c("Input", {
-                                attrs: {
-                                  placeholder:
-                                    "Enter NID/PASSPORT/DRIVING LICENSE"
-                                },
-                                model: {
-                                  value: _vm.formValidate.nid,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "nid", $$v)
-                                  },
-                                  expression: "formValidate.nid"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "E-mail", prop: "mail" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter e-mail" },
-                                model: {
-                                  value: _vm.formValidate.mail,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "mail", $$v)
-                                  },
-                                  expression: "formValidate.mail"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Birth date" } },
-                            [
-                              _c("DatePicker", {
-                                attrs: {
-                                  type: "date",
-                                  placeholder: "Select date"
-                                },
-                                on: { "on-change": _vm.dateConverter }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Address", prop: "address" } },
-                            [
-                              _c("Input", {
-                                attrs: {
-                                  type: "textarea",
-                                  autosize: { minRows: 2, maxRows: 5 },
-                                  placeholder: "Enter full address..."
-                                },
-                                model: {
-                                  value: _vm.formValidate.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "address", $$v)
-                                  },
-                                  expression: "formValidate.address"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Gender", prop: "gender" } },
-                            [
-                              _c(
-                                "RadioGroup",
-                                {
-                                  model: {
-                                    value: _vm.formValidate.gender,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.formValidate, "gender", $$v)
-                                    },
-                                    expression: "formValidate.gender"
-                                  }
-                                },
-                                [
-                                  _c("Radio", { attrs: { label: "male" } }, [
-                                    _vm._v("Male")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("Radio", { attrs: { label: "female" } }, [
-                                    _vm._v("Female")
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Check In & Out" } },
-                            [
-                              _c("DatePicker", {
-                                attrs: {
-                                  type: "daterange",
-                                  placeholder: "Choose date range"
-                                },
-                                on: { "on-change": _vm.checkDates }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            { attrs: { label: "Room Numbers" } },
-                            [
-                              _c("Input", {
-                                attrs: { placeholder: "Enter numbers" },
-                                model: {
-                                  value: _vm.formValidate.phone,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.formValidate, "phone", $$v)
-                                  },
-                                  expression: "formValidate.phone"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "FormItem",
-                            [
-                              _c(
-                                "Button",
-                                {
-                                  attrs: { type: "primary" },
-                                  on: { click: _vm.addGuest }
-                                },
-                                [_vm._v("Add")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "Button",
-                                {
-                                  staticStyle: { "margin-left": "8px" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.handleReset("formValidate")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Reset")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "TabPane",
-                    { attrs: { label: "Existing Guest", name: "name2" } },
-                    [_vm._v("On Process")]
-                  )
                 ],
                 1
               )
